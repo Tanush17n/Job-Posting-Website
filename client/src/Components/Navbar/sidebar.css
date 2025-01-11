@@ -60,6 +60,21 @@ body {
   height: 70px;
 }
 
+.authMsg {
+  position: relative;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.auth {
+  position: relative;
+  left: 40%;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+}
+
 .main.open {
   margin-left: 250px;
 }
@@ -137,7 +152,7 @@ body {
     outline: none;
   }
   .btn4 {
-    top: -9.2rem;
+    top: -12.1rem;
     width: 50px;
     font-size: 13px;
     left: 82%;
@@ -166,6 +181,6 @@ body {
     cursor: pointer;
     position: relative;
     top: -2.5rem;
-    margin-left: -13px;
+    margin-left: 5px;
   }
 }

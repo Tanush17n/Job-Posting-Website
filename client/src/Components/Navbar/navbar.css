@@ -54,6 +54,10 @@ ul {
   justify-content: space-around;
 }
 
+.adminMsg {
+  margin-top: 25px;
+}
+
 .btn1 {
   color: rgb(81, 81, 220);
   outline: rgb(81, 81, 220) 2px solid;

@@ -31,13 +31,14 @@ function Sidebar() {
     };
   }, [sidebarOpen]);
 
-  const user = 1;
+  const user = null;
 
   const logoutFunction = () => {};
 
   return (
     <div className="App2 mt-2 overflow-hidden">
       {/* Logo and Sidebar Open Button */}
+
       <Link to="/">
         <img src={logo} alt="Logo" id="nav2-img" />
       </Link>
@@ -62,14 +63,14 @@ function Sidebar() {
                   alt="User"
                 />
               </Link>
-              <p className="text-center">
+              {/* <p className="text-center">
                 Profile name{" "}
                 <span className="font-bold text-blue-500">{user.name}</span>
-              </p>
+              </p> */}
             </div>
           </>
         ) : (
-          <div className="auth">Please log in</div>
+          <div className="authMsg">Please log in !!</div>
         )}
 
         {/* Sidebar Links */}
@@ -102,6 +103,39 @@ function Sidebar() {
           </div>
         )}
       </div>
+
+      <div className="main">
+        <span
+          style={{ fontSize: "22px" }}
+          className="open-btn"
+          onClick={openSidebar}
+        >
+          &#9776;
+        </span>
+      </div>
+
+      <div className="search2">
+        <i className="bi bi-search"></i>
+        <input type="search" placeholder="Search" />
+      </div>
+
+      {user ? (
+        <></>
+      ) : (
+        <>
+          <div className="reg">
+            <Link to="/register">
+              {" "}
+              <button className="btn4">Register</button>
+            </Link>
+          </div>
+          <div className="admin">
+            <Link to={"/adminLog"}>
+              <button id="admin"> Admin Login</button>
+            </Link>
+          </div>
+        </>
+      )}
     </div>
   );
 }
