@@ -38,10 +38,12 @@ function Navbar() {
   };
 
   const showInternships = () => {
+    // document.getElementById("ico").className = "bi bi-caret-up-fill";
     setDivVisibleForIntern(!isDivVisibleForIntern);
   };
 
   const showJobs = () => {
+    // document.getElementById("ico2").className = "bi bi-caret-up-fill";
     setDivVisibleForJob(!isDivVisibleForJob);
   };
 
@@ -53,12 +55,18 @@ function Navbar() {
           <div className="img">
             <img src={logo} alt="" />
           </div>
-          <div className="elem" onClick={showInternships}>
+          <div className="elem">
             <p>
-              Interships <i className="bi bi-caret-down"></i>
+              Interships{" "}
+              <i
+                onClick={showInternships}
+                id="ico"
+                className="bi bi-caret-down"
+              ></i>
             </p>
-            <p className="ml-4" onClick={showJobs}>
-              Jobs <i className="bi bi-caret-down"></i>
+            <p className="ml-4">
+              Jobs{" "}
+              <i onClick={showJobs} id="ico2" className="bi bi-caret-down"></i>
             </p>
           </div>
           <div className="search">
@@ -143,7 +151,7 @@ function Navbar() {
                 <div className="py-6">
                   <div className="flex bg-white rounded-lg justify-center overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
                     <div className="w-full p-8 lg:w-1/2">
-                      <p
+                      <span
                         onClick={loginFunction}
                         className="flex
  items-center h-9 justify-center mt-4 text-white bg-slate-100 rounded-lg hover:bg-gray-100"
@@ -169,7 +177,7 @@ function Navbar() {
                           </svg>
                         </div>
                         <h4 className="text-gray-500">Login With Google</h4>
-                      </p>
+                      </span>
                       <div className="mt-4 flex items-center justify-between">
                         <span className="border-b- w-1/5 lg:w-1/4"></span>
                         <p className="text-gray-500 text sm font-bold mb-2">
