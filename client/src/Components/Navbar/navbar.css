@@ -27,7 +27,7 @@ ul {
 
 .search {
   position: relative;
-  left: 35%;
+  left: 29%;
   margin-top: 15px;
 }
 
@@ -48,14 +48,16 @@ ul {
 
 .auth {
   position: relative;
-  left: 40%;
+  left: 34%;
   margin-top: 1.5rem;
   display: flex;
   justify-content: space-around;
 }
 
 .adminMsg {
-  margin-top: 25px;
+  margin-top: 20px;
+  position: relative;
+  left: 40%;
 }
 
 .btn1 {
@@ -81,9 +83,22 @@ ul {
   border-radius: 2px;
 }
 
+.adminbtn{
+  color: white;
+  outline: rgb(81, 81, 220) 2px solid;
+  background-color: rgb(89, 89, 138);
+  border: none;
+  width: 60px;
+  margin-left: 78px;
+  height: 25px;
+  font-size: 16px;
+  border-radius: 2px;
+
+}
+
 .hire {
   position: relative;
-  left: 45%;
+  left: 40%;
   margin-left: 20px;
   margin-top: 20px;
   font-weight: 500;
@@ -95,4 +110,10 @@ ul {
   .nav1 {
     display: none;
   }
+}
+
+#cross{
+  position: relative;
+  left: 61%;
+  font-size: 30px;
 }
