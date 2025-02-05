@@ -3,225 +3,155 @@ import React from "react";
 function Footer() {
   return (
     <div>
-      <footer className="bg-gray-800 text-white">
-        <div className="container px-6 py-12 mx-auto">
-          <div className="grid grid-cols-2 gap-6 mt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-            <div>
-              <h3 className="text-sm font-bold  ">Internship by places</h3>
+      <link
+        rel="stylesheet"
+        href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css"
+      />
+      <link
+        rel="stylesheet"
+        href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css"
+      />
 
-              <div className="flex flex-col items-start mt-4 space-y-4">
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Bengaluru
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Mumbai
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Dehli
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Jaipur
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Banaras
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Kashmir
-                </p>
+      <footer className="relative bg-blueGray-200 pt-8 pb-6 mt-5">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap text-left lg:text-left">
+            <div className="w-full lg:w-6/12 px-4">
+              <h4 className="text-3xl fonat-semibold text-blueGray-700">
+                Let's keep in touch!
+              </h4>
+              <h5 className="text-lg mt-0 mb-2 text-blueGray-600">
+                Find us on any of these platforms, we respond 1-2 business days.
+              </h5>
+              <div className="mt-6 lg:mb-0 mb-6">
+                <button
+                  className="bg-white text-lightBlue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                  type="button"
+                >
+                  <i className="fab fa-twitter"></i>
+                </button>
+                <button
+                  className="bg-white text-lightBlue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                  type="button"
+                >
+                  <i className="fab fa-facebook-square"></i>
+                </button>
+                <button
+                  className="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                  type="button"
+                >
+                  <i className="fab fa-dribbble"></i>
+                </button>
+                <button
+                  className="bg-white text-blueGray-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
+                  type="button"
+                >
+                  <i className="fab fa-github"></i>
+                </button>
               </div>
             </div>
-
-            <div>
-              <h3 className="text-sm font-bold  ">Internship by stream</h3>
-
-              <div className="flex flex-col items-start mt-4 space-y-4">
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  About us
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Careers
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Press
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  News
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Media kit
-                </p>
-                <p className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600">
-                  Contact
-                </p>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-bold  ">Job Places</h3>
-
-              <div className="flex flex-col items-start mt-4 space-y-4">
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Blog
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Newsletter
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Events
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Help center
-                </a>{" "}
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Tutorials
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Supports
-                </a>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-bold  ">Jobs by streams</h3>
-
-              <div className="flex flex-col items-start mt-4 space-y-4">
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Startups
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Enterprise
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Government
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Saas
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Marketplaces
-                </a>
-                <a
-                  href="/"
-                  className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-                >
-                  Ecommerce
-                </a>
+            <div className="w-full lg:w-6/12 px-4">
+              <div className="flex flex-wrap items-top mb-6">
+                <div className="w-full lg:w-4/12 px-4 ml-auto">
+                  <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
+                    Useful Links
+                  </span>
+                  <ul className="list-unstyled block">
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block text-sm pb-2"
+                        href="https://www.creative-tim.com/presentation?ref=njs-profile"
+                      >
+                        About Us
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block text-sm pb-2"
+                        href="https://blog.creative-tim.com?ref=njs-profile"
+                      >
+                        Blog
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block text-sm pb-2"
+                        href="https://www.github.com/creativetimofficial?ref=njs-profile"
+                      >
+                        Github
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block text-sm pb-2"
+                        href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile"
+                      >
+                        Free Products
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div className="w-full lg:w-4/12 px-4">
+                  <span className="block uppercase text-blueGray-500 text-sm font-semibold mb-2">
+                    Other Resources
+                  </span>
+                  <ul className="list-unstyled block">
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile"
+                      >
+                        MIT License
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        href="https://creative-tim.com/terms?ref=njs-profile"
+                      >
+                        Terms &amp; Conditions
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        href="https://creative-tim.com/privacy?ref=njs-profile"
+                      >
+                        Privacy Policy
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                        href="https://creative-tim.com/contact-us?ref=njs-profile"
+                      >
+                        Contact Us
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-
-          <hr className="my-6 border-gray-200 md:my-10 dark:border-gray-700" />
-          <div>
-            <h3 className="text-sm font-bold  ">About us</h3>
-
-            <div className="flex flex-col items-start mt-4 space-y-4">
-              <a
-                href="/"
-                className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-              >
-                Startups
-              </a>
-              <a
-                href="/"
-                className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-              >
-                Enterprise
-              </a>
+          <hr className="my-6 border-blueGray-300" />
+          <div className="flex flex-wrap items-center md:justify-between justify-center">
+            <div className="w-full md:w-4/12 px-4 mx-auto text-center">
+              <div className="text-sm text-blueGray-500 font-semibold py-1">
+                Copyright © <span id="get-current-year">2021</span>
+                <a
+                  href="https://www.creative-tim.com/product/notus-js"
+                  className="text-blueGray-500 hover:text-gray-800"
+                  target="_blank"
+                />{" "}
+                Notus JS by
+                <a
+                  href="https://www.creative-tim.com?ref=njs-profile"
+                  className="text-blueGray-500 hover:text-blueGray-800"
+                >
+                  Creative Tim
+                </a>
+                .
+              </div>
             </div>
-          </div>
-          <div>
-            <h3 className="text-sm font-bold  ">Team diary</h3>
-
-            <div className="flex flex-col items-start mt-4 space-y-4">
-              <a
-                href="/"
-                className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-              >
-                Startups
-              </a>
-              <a
-                href="/"
-                className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-              >
-                Enterprise
-              </a>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-sm font-bold  ">Terms and conditions</h3>
-
-            <div className="flex flex-col items-start mt-4 space-y-4">
-              <a
-                href="/"
-                className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-              >
-                Startups
-              </a>
-              <a
-                href="/"
-                className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-              >
-                Enterprise
-              </a>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-sm font-bold  ">sitemap </h3>
-
-            <div className="flex flex-col items-start mt-4 space-y-4">
-              <a
-                href="/"
-                className=" transition-colors duration-200 dark dark:hover:text-blue-400 hover:underline hover:text-blue-600"
-              >
-                Startups
-              </a>
-            </div>
-          </div>
-          <div className="flex flex-col items-center justify-between sm:flex-row">
-            <p className="border-white">
-              <i className="bi bi-google-play text-black"></i> Get Android App
-            </p>
-            <div className="social-icons">
-              <i className="fab fa-facebook"></i>
-              <i className="fab fa-twitter"></i>
-              <i className="fab fa-instagram"></i>
-            </div>
-            <p className="mt-4 text-sm  sm:mt-0 dark">
-              © Copyright 2023. All Rights Reserved.
-            </p>
           </div>
         </div>
       </footer>
