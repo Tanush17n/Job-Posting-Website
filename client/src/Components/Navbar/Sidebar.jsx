@@ -74,7 +74,7 @@ function Sidebar() {
         )}
 
         {/* Sidebar Links */}
-        <Link to="/internship">Internships</Link>
+        <Link to="/internships">Internships</Link>
         <Link to="/Jobs">Jobs</Link>
         <Link to="/" className="small">
           Contact Us

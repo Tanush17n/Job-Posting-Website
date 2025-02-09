@@ -88,9 +88,10 @@ function Navbar() {
             <button className="btn1" onClick={showLogin}>
               Login
             </button>
-            <Link to={"/register"}>
-              <button className="btn2">Register</button>
-            </Link>
+
+            <button className="btn2">
+              <Link to={"/register"}>Register</Link>
+            </button>
           </div>
           <div className="flex mt-7 hire">Hire Talent</div>
           <div className="adminMsg">
