@@ -39,6 +39,16 @@ body {
   margin-left: 50px;
 }
 
+.bt-log {
+  position: relative;
+  display: flex;
+  font-size: larger;
+  width: 10px;
+  left: 33%;
+  margin-top: 13px;
+  margin-bottom: 13px;
+}
+
 .main {
   transition: margin-left 0.5s;
   padding: 16px;
@@ -134,6 +144,11 @@ body {
   top: -10rem;
   margin-left: 23px;
   font-weight: 500;
+}
+
+.profile-side{
+  position: relative;
+  left: 0%;
 }
 
 @media screen and (max-width: 768px) {

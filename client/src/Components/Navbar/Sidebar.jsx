@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import logo from "../../Assets/logo.png";
 import "./sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Feature/UserSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../../Firebase/firebase";
 
 function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -31,9 +35,15 @@ function Sidebar() {
     };
   }, [sidebarOpen]);
 
-  const user = null;
+  // const user = null;
+  const user = useSelector(selectUser);
 
-  const logoutFunction = () => {};
+  const navigate = useNavigate();
+
+  const logoutFunction = () => {
+    signOut(auth);
+    navigate("/");
+  };
 
   return (
     <div className="App2 mt-2 overflow-hidden">
@@ -55,10 +65,10 @@ function Sidebar() {
         {user ? (
           <>
             {/* User Profile */}
-            <div className="profile">
+            <div className="profile-side">
               <Link to="/profile">
                 <img
-                  className="rounded-full justify-center"
+                  className="rounded-full justify-center w-12 ml-2"
                   src={user.photo}
                   alt="User"
                 />
@@ -93,7 +103,7 @@ function Sidebar() {
               <p>More</p>
             </Link>
             <button className="bt-log" onClick={logoutFunction}>
-              Logout <i className="bi bi-box-arrow-right"></i>
+              Logout <i className="bi bi-box-arrow-right ml-2 size-10"></i>
             </button>
           </div>
         ) : (

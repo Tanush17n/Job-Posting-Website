@@ -4,7 +4,7 @@ import "./navbar.css";
 import Sidebar from "./Sidebar";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from "../../Firebase/firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../Feature/UserSlice";
 
@@ -15,6 +15,8 @@ function Navbar() {
   const [isDivVisibleForLogin, setDivVisibleForLogin] = useState(false);
   const [isStudent, setStudent] = useState(true);
 
+  const navigate = useNavigate();
+
   const loginFunction = () => {
     signInWithPopup(auth, provider)
       .then((res) => {
@@ -24,6 +26,11 @@ function Navbar() {
         console.log(err);
       });
     setDivVisibleForLogin(false);
+  };
+
+  const logoutFunction = () => {
+    signOut(auth);
+    navigate("/");
   };
 
   const showLogin = () => {
@@ -114,10 +121,20 @@ function Navbar() {
             </>
           )}
 
-          <div className="flex mt-7 hire">Hire Talent</div>
-          <div className="adminMsg">
-            <button className="adminbtn">Admin</button>
-          </div>
+          {user ? (
+            <>
+              <button className="btn3" onClick={logoutFunction}>
+                LogOut
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="flex mt-7 hire">Hire Talent</div>
+              <div className="adminMsg">
+                <button className="adminbtn">Admin</button>
+              </div>
+            </>
+          )}
         </ul>
       </nav>
       {isDivVisibleForJob && (
@@ -192,7 +209,10 @@ function Navbar() {
  items-center h-9 justify-center mt-4 text-white bg-slate-100 rounded-lg hover:bg-gray-100"
                       >
                         <div className="px-4 py-3">
-                          <svg className="h-6 w-6" viewBox="0 0 40 40">
+                          <svg
+                            className="h-6 w-6  cursor-pointer"
+                            viewBox="0 0 40 40"
+                          >
                             <path
                               d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
                               fill="#FFC107"
@@ -211,7 +231,9 @@ function Navbar() {
                             />
                           </svg>
                         </div>
-                        <h4 className="text-gray-500">Login With Google</h4>
+                        <h4 className="text-gray-500  cursor-pointer">
+                          Login With Google
+                        </h4>
                       </span>
                       <div className="mt-4 flex items-center justify-between">
                         <span className="border-b- w-1/5 lg:w-1/4"></span>

@@ -101,6 +101,20 @@ ul {
   border-radius: 2px;
 }
 
+.btn3 {
+  margin-top: 20px;
+  left: 89%;
+  position: fixed;
+  color: rgb(81, 81, 220);
+  outline: rgb(81, 81, 220) 2px solid;
+  border: none;
+  width: 60px;
+  margin-right: -52px;
+  height: 25px;
+  font-size: 16px;
+  border-radius: 2px;
+}
+
 .adminbtn{
   color: white;
   outline: rgb(81, 81, 220) 2px solid;
@@ -136,18 +150,12 @@ ul {
   font-size: 30px;
 }
 
-/* #ico2{
-  top: 31%;
-  position: relative;
-  left: -7%;
+.profile{
+  position: fixed;
+  left: 80%;
 }
-#ico{
-  top: 31%;
-  position: relative;
-  left: -7%;
-} */
 
-.profile-dropdown{
+/* .profile-dropdown{
   position: absolute;
   top: 10%;
   left: 126%;
@@ -188,7 +196,7 @@ width: 30%;
   z-index: 1;
   display: flex;
   justify-content: space-around;
-}
+} */
 
 .line{
   width: 0.5px;
