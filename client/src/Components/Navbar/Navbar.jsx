@@ -5,8 +5,11 @@ import Sidebar from "./Sidebar";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, provider } from "../../Firebase/firebase";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Feature/UserSlice";
 
 function Navbar() {
+  const user = useSelector(selectUser);
   const [isDivVisibleForIntern, setDivVisibleForIntern] = useState(false);
   const [isDivVisibleForJob, setDivVisibleForJob] = useState(false);
   const [isDivVisibleForLogin, setDivVisibleForLogin] = useState(false);
@@ -20,6 +23,7 @@ function Navbar() {
       .catch((err) => {
         console.log(err);
       });
+    setDivVisibleForLogin(false);
   };
 
   const showLogin = () => {
@@ -48,7 +52,7 @@ function Navbar() {
     setDivVisibleForJob(!isDivVisibleForJob);
   };
 
-  const user = 1;
+  // const user = 1;
   return (
     <div>
       <nav className="nav1">
@@ -84,15 +88,32 @@ function Navbar() {
             <i className="bi bi-search"></i>
             <input type="text" placeholder="Search" />
           </div>
-          <div className="auth">
-            <button className="btn1" onClick={showLogin}>
-              Login
-            </button>
+          {user ? (
+            <>
+              <div className="profile">
+                <Link to={"/profile"}>
+                  <img
+                    src={user?.photo}
+                    alt=""
+                    className="rounded-full w-12 mt-2"
+                  />
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="auth">
+                <button className="btn1" onClick={showLogin}>
+                  Login
+                </button>
 
-            <button className="btn2">
-              <Link to={"/register"}>Register</Link>
-            </button>
-          </div>
+                <button className="btn2">
+                  <Link to={"/register"}>Register</Link>
+                </button>
+              </div>
+            </>
+          )}
+
           <div className="flex mt-7 hire">Hire Talent</div>
           <div className="adminMsg">
             <button className="adminbtn">Admin</button>
