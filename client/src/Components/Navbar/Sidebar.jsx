@@ -41,8 +41,11 @@ function Sidebar() {
   const navigate = useNavigate();
 
   const logoutFunction = () => {
-    signOut(auth);
-    navigate("/");
+    if (window.confirm("Are you sure you want to log out?")) {
+      alert("You have successfully logged out");
+      signOut(auth);
+      navigate("/");
+    }
   };
 
   return (

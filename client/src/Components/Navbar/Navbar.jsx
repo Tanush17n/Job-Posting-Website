@@ -29,8 +29,11 @@ function Navbar() {
   };
 
   const logoutFunction = () => {
-    signOut(auth);
-    navigate("/");
+    if (window.confirm("Are you sure you want to log out?")) {
+      alert("You have successfully logged out");
+      signOut(auth);
+      navigate("/");
+    }
   };
 
   const showLogin = () => {
@@ -123,7 +126,7 @@ function Navbar() {
 
           {user ? (
             <>
-              <button className="btn3" onClick={logoutFunction}>
+              <button className="btn-logout" onClick={logoutFunction}>
                 LogOut
               </button>
             </>

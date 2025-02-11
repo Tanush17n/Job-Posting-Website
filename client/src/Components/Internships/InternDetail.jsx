@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Internships from "../Data/InternshipDatAvl";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../Feature/UserSlice";
+import "./detail.css";
 
 function InternDetail() {
+  // const show = () => {
+  //   console.log("show");
+  // };
+
+  const user = useSelector(selectUser);
+  const [isDivVisible, setDivVIsible] = useState(false);
+  const [textare, setTextare] = useState("");
+
   const show = () => {
-    console.log("show");
+    setDivVIsible(true);
+  };
+
+  const hide = () => {
+    setDivVIsible(false);
   };
 
   return (
@@ -107,6 +123,110 @@ function InternDetail() {
                 </div>
               </div>
             </div>
+            {isDivVisible && (
+              <>
+                <div className="application-page">
+                  <div className="bg">
+                    <button id="cross" onClick={hide}>
+                      <i className="bi bi-x"></i>
+                    </button>
+                    <p>Appliying for {data.company}</p>
+                    <p className="m-3 text-sm font-bold text-start ">
+                      {data.aboutCompany}
+                    </p>
+                  </div>
+                  <div className="moreSteps text-center">
+                    <p className="font-semibold text-xl">Your resume</p>
+                    <small className="flex justify-center">
+                      your current resume will be submitted along with the
+                      application
+                    </small>
+
+                    <p className="mt-5 font-semibold text-xl mb-2">
+                      Cover letter
+                    </p>
+
+                    <p>why should we hire for this role?</p>
+                    <textarea
+                      name="coverLetter"
+                      placeholder=""
+                      id="text"
+                      value={textare}
+                      onChange={(e) => setTextare(e.target.value)}
+                    ></textarea>
+                    <p className="mt-5 font-semibold text-xl">
+                      your availiblity
+                    </p>
+                    <p>confirm your availiblity</p>
+                  </div>
+                  <div className="options ml-5">
+                    <div>
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="Yes, I am available to join immediately"
+                        />
+                        &nbsp; Yes, I am available to join immediately
+                      </label>
+                    </div>
+
+                    <div>
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="No, I am currently on notice period"
+                        />
+                        &nbsp; No, I am currently on notice period
+                      </label>
+                    </div>
+
+                    <div>
+                      <label>
+                        <input
+                          type="checkbox"
+                          value="No, I will have to serve notice period"
+                        />
+                        &nbsp; No, I will have to serve notice period
+                      </label>
+                    </div>
+
+                    <div>
+                      <label>
+                        <input type="checkbox" value="Other" />
+                        &nbsp; Other{" "}
+                        <span className="text-slate-500">
+                          (Please specify your availability){" "}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <p className="mt-5 font-semibold text-xl">
+                    Custom resume{" "}
+                    <span className="text-slate-500">(Optional)</span>
+                  </p>
+                  <small className="text-slate-500 flex justify-center">
+                    Employer can download and view this resume
+                  </small>
+
+                  <div className="submit flex justify-center mt-4">
+                    {user ? (
+                      <button
+                        className="submit-btn"
+                        // onClick={submitApplication}
+                      >
+                        Submit application
+                      </button>
+                    ) : (
+                      <Link to={"/register"}>
+                        <button className="submit-btn">
+                          Submit application
+                        </button>
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         ))}
       </div>
