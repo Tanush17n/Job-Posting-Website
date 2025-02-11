@@ -51,11 +51,7 @@ function Intern() {
         <div className="first-int mb-14">
           <div className="filter-section w-1/6">
             <p id="filter-ico" className=" text-center mt-3">
-              <i
-                className="bi bi-funnel cursor-pointer text-blue-400"
-                onClick={showDiv}
-              ></i>{" "}
-              Filter
+              <i className="bi bi-funnel text-blue-400"></i> Filter
             </p>
             <div className="fill flex flex-col ml-2">
               <label htmlFor="pro">Profile</label>

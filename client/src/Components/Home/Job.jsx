@@ -27,7 +27,7 @@ function Job() {
           <div className="text-center font-bold">
             Latest Jobs on Intern Area
           </div>
-          <div className="catergories flex flex-wrap mt-14">
+          <div className="catergories flex flex-wrap mt-14 ml-4">
             <p>POPULAR CATEGORIES :</p>
             <span
               className={`category mr-2 ml-2 ${

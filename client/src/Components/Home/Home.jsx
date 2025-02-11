@@ -68,7 +68,7 @@ function Home() {
               Latest internships on Intern Area
             </h1>
           </div>
-          <div className="catergories flex flex-wrap mt-14">
+          <div className="catergories flex flex-wrap mt-14 ml-4">
             <p>POPULAR CATEGORIES :</p>
             <span
               className={`category mr-2 ml-2 ${
