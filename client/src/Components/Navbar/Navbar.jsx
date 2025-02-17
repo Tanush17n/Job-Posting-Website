@@ -104,7 +104,7 @@ function Navbar() {
                 <Link to={"/profile"}>
                   <img
                     src={user?.photo}
-                    alt=""
+                    alt="user"
                     className="rounded-full w-12 mt-2"
                   />
                 </Link>

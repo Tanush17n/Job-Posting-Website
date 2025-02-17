@@ -73,7 +73,7 @@ function Sidebar() {
                 <img
                   className="rounded-full justify-center w-12 ml-2"
                   src={user.photo}
-                  alt="User"
+                  alt="user"
                 />
               </Link>
               {/* <p className="text-center">

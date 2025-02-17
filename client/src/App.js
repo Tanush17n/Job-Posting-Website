@@ -13,6 +13,7 @@ import InternDetail from './Components/Internships/InternDetail';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout, selectUser } from './Feature/UserSlice';
 import { auth } from './Firebase/firebase';
+import Profile from './Profile/Profile';
 
 function App() {
   const user = useSelector(selectUser);
@@ -44,6 +45,7 @@ function App() {
         <Route path='/Jobs' element = {<JobAvl/>} />
         <Route path='/JobDetail' element = {<JobDetail/>}/>
         <Route path='/InternshipDetail' element = {<InternDetail/>}/>
+        <Route path='/profile' element = {<Profile/>}/>
 
       
       </Routes>
