@@ -60,7 +60,7 @@ function JobAvl() {
                 id="pro"
                 value={serachCategory}
                 onChange={handleCategoryChange}
-                className="profile border-2 mr-4 mb-2"
+                className="location border-2 mr-4 mb-2"
                 placeholder="Profile manager"
               />
               <label htmlFor="loc">Location</label>

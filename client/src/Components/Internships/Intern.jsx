@@ -55,12 +55,20 @@ function Intern() {
             </p>
             <div className="fill flex flex-col ml-2">
               <label htmlFor="pro">Profile</label>
-              <input
+              {/* <input
                 type="text"
                 id="pro"
                 value={searchCategory}
                 onChange={handleCategoryChange}
                 className="profile border-2 mr-4 mb-2"
+                placeholder="Profile manager"
+              /> */}
+              <input
+                type="text"
+                id="pro"
+                value={searchCategory}
+                onChange={handleCategoryChange}
+                className="location border-2 mr-4 mb-2"
                 placeholder="Profile manager"
               />
               <label htmlFor="loc">Location</label>
