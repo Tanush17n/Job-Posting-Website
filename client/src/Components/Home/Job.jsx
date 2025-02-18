@@ -1,11 +1,26 @@
-import React, { useState } from "react";
-import JobData from "../Data/JobsDataAvl";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Job() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Big Brands");
 
-  const filterInternships = JobData.filter(
+  const [jobData, setjobData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/job`);
+        setjobData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const filterInternships = jobData.filter(
     (item) => !selectedCategory || item.category === selectedCategory
   );
 
@@ -159,10 +174,11 @@ function Job() {
                   <span className="bg-slate-200 text-slate-400 w-20 rounded-sm text-center">
                     Job
                   </span>
-
-                  <span className="text-blue-500 mr-2">
-                    View Details <i className="bi bi-chevron-right"></i>
-                  </span>
+                  <Link to={`/detailJob?q=${data._id}`}>
+                    <span className="text-blue-500 mr-2">
+                      View Details <i className="bi bi-chevron-right"></i>
+                    </span>
+                  </Link>
                 </div>
               </div>
             ))}

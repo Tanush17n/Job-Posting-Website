@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./intern.css";
-import InternShipData from "../Data/InternshipDatAvl";
+// import InternShipData from "../Data/InternshipDatAvl";
 import { Link } from "react-router-dom";
 import compLogo from "../../Assets/netflix.png";
+import axios from "axios";
 
 function Intern() {
   const [searchCategory, setSearchCategory] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [filterInternship, setFilterInternship] = useState([]);
   const [isDivVisible, setDivVisible] = useState(false);
+  const [internshipData, setInternshipData] = useState([]);
 
   const showDiv = () => {
     setDivVisible(true);
@@ -30,19 +32,35 @@ function Intern() {
   };
 
   const filterInterships = (category, location) => {
-    if (InternShipData && InternShipData.length > 0) {
-      const filterData = InternShipData.filter(
+    if (internshipData && internshipData.length > 0) {
+      const filterData = internshipData.filter(
         (internship) =>
-          internship.category.toLowerCase().includes(category.toLowerCase()) &&
-          internship.location.toLowerCase().includes(location.toLowerCase())
+          internship.category?.toLowerCase().includes(category.toLowerCase()) &&
+          internship.location?.toLowerCase().includes(location.toLowerCase())
       );
       setFilterInternship(filterData);
     }
   };
 
   useEffect(() => {
-    filterInterships(searchCategory, searchLocation);
-  }, [searchLocation, searchCategory]);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/api/internship`
+        );
+        setInternshipData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (internshipData.length > 0) {
+      filterInterships(searchCategory, searchLocation);
+    }
+  }, [searchLocation, searchCategory, internshipData]);
   console.log(filterInternship);
 
   return (
@@ -194,7 +212,7 @@ function Intern() {
                 <span>
                   <i className="bi bi-stopwatch text-green-300"></i>23/11/2065
                 </span>
-                {/* <div className="flex justify-end" id="hr">
+                <div className="flex justify-end" id="hr">
                   <Link
                     to={`/detailInternship?q=${data._id}`}
                     className="mt-10"
@@ -206,7 +224,7 @@ function Intern() {
                       View In Deatils
                     </button>
                   </Link>
-                </div> */}
+                </div>
               </div>
             </div>
           ))}

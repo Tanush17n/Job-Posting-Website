@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./job.css";
-import JobData from "../Data/JobsDataAvl";
+// import JobData from "../Data/JobsDataAvl";
 import { Link } from "react-router-dom";
 import compLogo from "../../Assets/netflix.png";
+import axios from "axios";
 
 function JobAvl() {
   const [serachCategory, setSearchCategory] = useState("");
   const [searchLoaction, setSearchLocation] = useState("");
   const [filterJob, setFilterJob] = useState([]);
   const [isDivVisible, setDivVisible] = useState(false);
+  const [jobData, setjobData] = useState([]);
 
   const showDiv = () => {
     setDivVisible(true);
@@ -30,8 +32,8 @@ function JobAvl() {
   };
 
   const filterJobs = (category, location) => {
-    if (JobData && JobData.length > 0) {
-      const filterData = JobData.filter(
+    if (jobData && jobData.length > 0) {
+      const filterData = jobData.filter(
         (job) =>
           job.category.toLowerCase().includes(category.toLowerCase()) &&
           job.location.toLowerCase().includes(location.toLowerCase())
@@ -41,9 +43,22 @@ function JobAvl() {
   };
 
   useEffect(() => {
-    filterJobs(serachCategory, searchLoaction);
-  }, [searchLoaction, serachCategory]);
-  console.log(filterJob);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/job`);
+        setjobData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (jobData.length > 0) {
+      filterJobs(serachCategory, searchLoaction);
+    }
+  }, [searchLoaction, serachCategory, jobData]);
 
   return (
     <>
@@ -185,11 +200,8 @@ function JobAvl() {
                 <span>
                   <i className="bi bi-stopwatch text-green-300"></i>23/11/2065
                 </span>
-                {/* <div className="flex justify-end" id="hr">
-                  <Link
-                    to={`/detailInternship?q=${data._id}`}
-                    className="mt-10"
-                  >
+                <div className="flex justify-end" id="hr">
+                  <Link to={`/detailJob?q=${data._id}`} className="mt-10">
                     <button
                       id="viewButtons"
                       className="bg-transparent text-blue-500"
@@ -197,7 +209,7 @@ function JobAvl() {
                       View In Deatils
                     </button>
                   </Link>
-                </div> */}
+                </div>
               </div>
             </div>
           ))}
