@@ -13,40 +13,47 @@ A job posting platform inspired by Internshala. The project connects employers a
 ## Tech Stack
 
 ### Frontend:
+
 - React.js
 - Tailwind CSS
 
 ### Backend:
+
 - Node.js
 - Express.js
 
 ### Database
+
 - MongoDB
 
 ## Setup Instructions
 
+### To run the project locally, First you need to create a `.env` file with the necessary environment variables.
+
+1. Create the `.env` file in the server directory
+2. Edit the `.env` file and provide your own values (e.g., MongoDB URI, port number, etc.)
+3. Now, you can run the project locally!
+
 #### 1. Clone the repository:
+
 git clone https://github.com/your-username/your-repo-name.git
 
 #### 2. Navigate to the project directory:
+
 cd your-repo-name
 
 #### 3. Install dependencies:
+
 npm install
 
 #### 4. Start the development server:
+
 npm start
 
 #### 5. For the backend, navigate to the server folder, install dependencies, and start the server:
+
 cd server
 npm install
 npm start
 
 #### 6. Ensure MongoDB is running locally or provide a connection string in .env.
-
-
-
-
-
-
-
