@@ -28,7 +28,7 @@ A job posting platform inspired by Internshala. The project connects employers a
 
 ## Setup Instructions
 
-### To run the project locally, First you need to create a `.env` file with the necessary environment variables.
+#### To run the project locally, First you need to create a `.env` file with the necessary environment variables.
 
 1. Create the `.env` file in the server directory
 2. Edit the `.env` file and provide your own values (e.g., MongoDB URI, port number, etc.)
@@ -42,18 +42,24 @@ git clone https://github.com/your-username/your-repo-name.git
 
 cd your-repo-name
 
-#### 3. Install dependencies:
+#### 3. To run the project locally, First you need to create a `.env` file with the necessary environment variables.
+
+* Create the `.env` file in the server directory
+* Edit the `.env` file and provide your own values (e.g., MongoDB URI, port number, etc.)
+* Now, you can run the project locally!
+
+#### 4. Install dependencies:
 
 npm install
 
-#### 4. Start the development server:
+#### 5. Start the development server:
 
 npm start
 
-#### 5. For the backend, navigate to the server folder, install dependencies, and start the server:
+#### 6. For the backend, navigate to the server folder, install dependencies, and start the server:
 
 cd server
 npm install
 npm start
 
-#### 6. Ensure MongoDB is running locally or provide a connection string in .env.
+#### 7. Ensure MongoDB is running locally or provide a connection string in .env.
