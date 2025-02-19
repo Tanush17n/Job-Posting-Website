@@ -151,7 +151,7 @@ ul {
 }
 
 .profile{
-  position: absolute;
+  position: sticky;
   left: 80%;
 }
 
