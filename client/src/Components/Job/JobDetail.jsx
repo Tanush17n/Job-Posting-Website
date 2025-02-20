@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../Feature/UserSlice";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./job.css";
 
 function JobDetail() {
   const user = useSelector(selectUser);
   const [isDivVisible, setDivVIsible] = useState(false);
   const [textare, setTextare] = useState("");
+  const [company, setCompany] = useState("");
+  const [category, setCategory] = useState("");
+  const navigate = useNavigate();
+
   let search = window.location.search;
   const params = new URLSearchParams(search);
   const id = params.get("q");
@@ -23,12 +28,51 @@ function JobDetail() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    if (!id) {
+      console.error("No job ID found in URL");
+      return;
+    }
+
     const fetchData = async () => {
-      const respone = await axios.get(`http://localhost:5000/api/job/${id}`);
-      setData(respone.data);
+      try {
+        window.scrollTo(0, 0);
+        const response = await axios.get(`http://localhost:5000/api/job/${id}`);
+        const { company, category } = response.data;
+        setCompany(company);
+        setCategory(category);
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching job details:", error);
+      }
     };
+
     fetchData();
-  });
+  }, [id]);
+
+  const submitApplication = async () => {
+    let text = document.getElementById("text");
+    if (text.value === "") {
+      alert("Fill the Cover Letter Box");
+    } else {
+      const bodyJson = {
+        coverLetter: textare,
+        category: category,
+        company: company,
+        user: user,
+        Application: id,
+      };
+      await axios
+        .post("http://localhost:5000/api/application", bodyJson)
+        .then((res) => {})
+        .catch((err) => {
+          alert("Application error please try again");
+          navigate("/Jobs");
+        });
+      console.log("submitted");
+      alert("Job Application sent");
+      navigate("/Jobs");
+    }
+  };
 
   return (
     <div>
@@ -144,7 +188,7 @@ function JobDetail() {
 
                 <p>why should we hire for this role?</p>
                 <textarea
-                  name="coverLetter"
+                  name="cover"
                   placeholder=""
                   id="text"
                   value={textare}
@@ -203,10 +247,7 @@ function JobDetail() {
 
               <div className="submit flex justify-center mt-4">
                 {user ? (
-                  <button
-                    className="submit-btn"
-                    // onClick={submitApplication}
-                  >
+                  <button className="submit-btn" onClick={submitApplication}>
                     Submit application
                   </button>
                 ) : (

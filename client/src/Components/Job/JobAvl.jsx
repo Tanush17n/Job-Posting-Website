@@ -45,6 +45,7 @@ function JobAvl() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        window.scrollTo(0, 0);
         const response = await axios.get(`http://localhost:5000/api/job`);
         setjobData(response.data);
       } catch (error) {

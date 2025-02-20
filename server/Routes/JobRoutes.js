@@ -8,7 +8,7 @@ router.post("/", async(req,res)=>{
         title : req.body.title,
         company : req.body.company,
         location : req.body.location,
-        Experience : req.body.Duration,
+        Experience : req.body.Experience,
         category : req.body.category,
         aboutCompany : req.body.aboutCompany,
         aboutJob : req.body.aboutJob,
