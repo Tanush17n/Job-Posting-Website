@@ -19,6 +19,7 @@ import Adminpanel from './Admin/Adminpanel';
 import ViewAllApplication from './Admin/ViewAllApplication';
 import PostJOb from './Admin/PostJob';
 import Postinternships from './Admin/Postinternships';
+import DeatilApplication from './Applications/DeatilApplication'
 
 function App() {
   const user = useSelector(selectUser);
@@ -56,7 +57,9 @@ function App() {
         <Route path='/applications' element = {<ViewAllApplication/>}/>
         <Route path='/postJob' element = {<PostJOb/>}/>
         <Route path='/postInternship' element = {<Postinternships/>}/>
-
+        <Route path='/detailApplication' element = {<DeatilApplication/>}/>
+        
+         
 
       
       </Routes>

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../Feature/UserSlice";
 import "./detail.css";
 import axios from "axios";
 
 function InternDetail() {
-  // const show = () => {
-  //   console.log("show");
-  // };
-
   const user = useSelector(selectUser);
   const [isDivVisible, setDivVIsible] = useState(false);
   const [textare, setTextare] = useState("");
+  const [company, setCompany] = useState("");
+  const [category, setCategory] = useState("");
+  const navigate = useNavigate();
+
   let search = window.location.search;
   const params = new URLSearchParams(search);
   const id = params.get("q");
@@ -28,14 +28,47 @@ function InternDetail() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    if (!id) {
+      // console.error("No job ID found in URL");
+      return;
+    }
+
     const fetchData = async () => {
-      const respone = await axios.get(
+      const response = await axios.get(
         `http://localhost:5000/api/internship/${id}`
       );
-      setData(respone.data);
+      const { company, category } = response.data;
+      setCompany(company);
+      setCategory(category);
+      setData(response.data);
     };
     fetchData();
   });
+
+  const submitApplication = async () => {
+    let text = document.getElementById("text");
+    if (text.value === "") {
+      alert("Fill the Cover Letter Box");
+    } else {
+      const bodyJson = {
+        coverLetter: textare,
+        category: category,
+        company: company,
+        user: user,
+        Application: id,
+      };
+      await axios
+        .post("http://localhost:5000/api/application", bodyJson)
+        .then((res) => {})
+        .catch((err) => {
+          alert("Application error please try again");
+          navigate("/Internships");
+        });
+      console.log("submitted");
+      alert("Internship Application sent");
+      navigate("/Internships");
+    }
+  };
 
   return (
     <div>
@@ -210,10 +243,7 @@ function InternDetail() {
 
               <div className="submit flex justify-center mt-4">
                 {user ? (
-                  <button
-                    className="submit-btn"
-                    // onClick={submitApplication}
-                  >
+                  <button className="submit-btn" onClick={submitApplication}>
                     Submit application
                   </button>
                 ) : (

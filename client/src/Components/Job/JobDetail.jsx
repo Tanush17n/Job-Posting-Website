@@ -29,7 +29,7 @@ function JobDetail() {
 
   useEffect(() => {
     if (!id) {
-      console.error("No job ID found in URL");
+      // console.error("No job ID found in URL");
       return;
     }
 

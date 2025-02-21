@@ -22,7 +22,9 @@ function ViewAllApplication() {
   return (
     <div>
       <div className="hide">
-        <h1 className="text-3xl font-semibold mt-3">Total Applications</h1>
+        <h1 className="text-3xl font-semibold mt-3 text-center">
+          Total Applications
+        </h1>
         <div className="flex justify-center " id="tabel">
           <div className="applications flex flex-col mt-7">
             <div className="overflow-x-auto sm:-mx-6 lg:mx-8">
@@ -66,7 +68,7 @@ function ViewAllApplication() {
                           {data.user.name}
                         </td>
                         <td className="whitespace-nowrap px-6 py-4">
-                          <Link to={`/detailApplication?a=${data._id}`}>
+                          <Link to={`/detailApplication?q=${data._id}`}>
                             <i class="bi bi-envelope-open text-blue-500"></i>
                           </Link>
                         </td>
@@ -84,7 +86,9 @@ function ViewAllApplication() {
       </div>
 
       <div className="show">
-        <h1>View All Applications</h1>
+        <h1 className="text-xl font-semibold mt-6 ml-6 mb-5">
+          View All Applications
+        </h1>
         {application.map((data) => (
           <section class="text-gray-600 body-font">
             <div class="container px-5 py-2 mx-auto flex flex-wrap">
@@ -123,7 +127,7 @@ function ViewAllApplication() {
                         Application status {data.status}
                       </p>
                       <Link
-                        to={`/detailApplication?a=${data._id}`}
+                        to={`/detailApplication?q=${data._id}`}
                         class="mt-3 text-indigo-500 inline-flex items-center"
                       >
                         View in deatil
