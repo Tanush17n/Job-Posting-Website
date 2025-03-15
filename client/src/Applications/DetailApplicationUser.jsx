@@ -20,26 +20,7 @@ function DeatilApplication() {
     };
     fetchData();
   }, [id]);
-  const handleAcceptAndReject = async (id, action) => {
-    try {
-      const response = await axios.put(
-        `http://localhost:5000/api/application/${id}`,
-        { action }
-      );
-      const UpdateApplication = data.map((app) =>
-        app._id === id ? response.data.data : app
-      );
-      setData(UpdateApplication);
-      if (action == "accepted") {
-        alert("Application Accepted");
-      } else {
-        alert("Application Rejected");
-      }
-      navigate("/applications");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   console.log(data);
   return (
     <div>
@@ -72,23 +53,9 @@ function DeatilApplication() {
                   {new Date(data?.createAt).toLocaleDateString()}
                 </p>
 
-                <h4 className=" ml-56 mt-9">Applied By</h4>
-                <p className="font-bold -mt-6 ml-56">{data.user.name}</p>
+                {/* <h4 className=" ml-56 mt-9">Applied By</h4>
+                <p className="font-bold -mt-6 ml-56">{data.user?.name}</p> */}
               </div>
-            </div>
-            <div className="flex mt-24 justify-center">
-              <button
-                className="bg-blue-700 text-green-400 w-24 font-bold mr-20"
-                onClick={() => handleAcceptAndReject(data._id, "accepted")}
-              >
-                Accept
-              </button>
-              <button
-                className="bg-blue-700 text-red-600 w-24 font-bold"
-                onClick={() => handleAcceptAndReject(data._id, "rejected")}
-              >
-                Reject
-              </button>
             </div>
           </div>
         </section>

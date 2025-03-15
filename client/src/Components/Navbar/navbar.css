@@ -65,7 +65,7 @@ ul {
 
 .auth {
   position: relative;
-  left: 34%;
+  left: 40%;
   margin-top: 1.5rem;
   display: flex;
   justify-content: space-around;
@@ -73,9 +73,9 @@ ul {
 
 
 .adminMsg {
-  margin-top: 20px;
+  margin-top: 25px;
   position: relative;
-  left: 40%;
+  left: 50%;
 }
 
 .btn1 {
@@ -151,52 +151,13 @@ ul {
 }
 
 .profile{
+  display: flex;
+  gap: 3px;
+  align-items: center;
   position: sticky;
   left: 80%;
+  margin-bottom: 7px;
 }
-
-/* .profile-dropdown{
-  position: absolute;
-  top: 10%;
-  left: 126%;
-  background: white;
-  height: 250px;
-  z-index: 1;
-}
-.profile-dropdown-2{
-  position: absolute;
-  top: 11%;
-  left: 10%;
-  background: white;
-  width: 30%;
-  height: 60%;
-  z-index: 1;;
-  display: flex;
-  justify-content: space-around;
-}
-.profile-dropdown-2 p{
-  margin-left: 6px;
-  margin-top: 4px;
-  margin-right: 3px;
-
-}
-.profile-dropdown-1 p{
-  margin-left: 6px;
-  margin-top: 4px;
-  margin-right: 3px;
-
-}
-.profile-dropdown-1{
-  position: absolute;
-  top: 10%;
-  left: 15%;
-  background: white;
-width: 30%;
-  height: 60%;
-  z-index: 1;
-  display: flex;
-  justify-content: space-around;
-} */
 
 .line{
   width: 0.5px;

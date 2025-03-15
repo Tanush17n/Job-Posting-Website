@@ -20,6 +20,8 @@ import ViewAllApplication from './Admin/ViewAllApplication';
 import PostJOb from './Admin/PostJob';
 import Postinternships from './Admin/Postinternships';
 import DeatilApplication from './Applications/DeatilApplication'
+import DetailApplicationUser from "./Applications/DetailApplicationUser"
+import UserApplication from './Profile/UserApplication';
 
 function App() {
   const user = useSelector(selectUser);
@@ -58,6 +60,8 @@ function App() {
         <Route path='/postJob' element = {<PostJOb/>}/>
         <Route path='/postInternship' element = {<Postinternships/>}/>
         <Route path='/detailApplication' element = {<DeatilApplication/>}/>
+        <Route path='/detailApplicationUser' element = {<DetailApplicationUser/>}/>
+        <Route path='/userApplications' element = {<UserApplication/>}/>
         
          
 

@@ -130,14 +130,14 @@ function JobAvl() {
               Clear all
             </span>
           </div>
-          <div className="search-2">
+          {/* <div className="search-2">
             <div className="search-container">
               <input type="text" placeholder="eg. Design Media MBA" />
               <div className="search-icon">
                 <i className="bi bi-search"></i>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="all-internships">
           <div className=" show show2 flex justify-center">
@@ -225,13 +225,13 @@ function JobAvl() {
                 >
                   <i className="bi bi-x"></i>
                 </span>
-                <p id="filter-ico" className=" text-center mt-3">
+                {/* <p id="filter-ico" className=" text-center mt-3">
                   <i
                     className="bi bi-funnel cursor-pointer text-blue-400"
                     onClick={showDiv}
                   ></i>{" "}
                   Filter
-                </p>
+                </p> */}
                 <div className="fill flex flex-col ml-2">
                   <label htmlFor="pro">Profile</label>
                   <input
@@ -293,14 +293,14 @@ function JobAvl() {
                   Clear all
                 </span>
               </div>
-              <div className="search-2">
+              {/* <div className="search-2">
                 <div className="search-container">
                   <input type="text" placeholder="eg. Design Media MBA" />
                   <div className="search-icon">
                     <i className="bi bi-search"></i>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </>
         )}

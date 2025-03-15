@@ -10,8 +10,8 @@ import { selectUser } from "../../Feature/UserSlice";
 
 function Navbar() {
   const user = useSelector(selectUser);
-  const [isDivVisibleForIntern, setDivVisibleForIntern] = useState(false);
-  const [isDivVisibleForJob, setDivVisibleForJob] = useState(false);
+  // const [isDivVisibleForIntern, setDivVisibleForIntern] = useState(false);
+  // const [isDivVisibleForJob, setDivVisibleForJob] = useState(false);
   const [isDivVisibleForLogin, setDivVisibleForLogin] = useState(false);
   const [isStudent, setStudent] = useState(true);
 
@@ -52,15 +52,15 @@ function Navbar() {
     setStudent(false);
   };
 
-  const showInternships = () => {
-    // document.getElementById("ico").className = "bi bi-caret-up-fill";
-    setDivVisibleForIntern(!isDivVisibleForIntern);
-  };
+  // const showInternships = () => {
+  //   // document.getElementById("ico").className = "bi bi-caret-up-fill";
+  //   setDivVisibleForIntern(!isDivVisibleForIntern);
+  // };
 
-  const showJobs = () => {
-    // document.getElementById("ico2").className = "bi bi-caret-up-fill";
-    setDivVisibleForJob(!isDivVisibleForJob);
-  };
+  // const showJobs = () => {
+  //   // document.getElementById("ico2").className = "bi bi-caret-up-fill";
+  //   setDivVisibleForJob(!isDivVisibleForJob);
+  // };
 
   // const user = 1;
   return (
@@ -75,29 +75,16 @@ function Navbar() {
           <div className="elem">
             <Link to={"/Internships"}>
               <p>
-                Interships{" "}
-                <i
-                  onClick={showInternships}
-                  id="ico"
-                  className="bi bi-caret-down"
-                ></i>
+                Interships <i id="ico" className="bi bi-caret-down"></i>
               </p>
             </Link>
             <Link to={"/Jobs"}>
               <p className="ml-4">
-                Jobs{" "}
-                <i
-                  onClick={showJobs}
-                  id="ico2"
-                  className="bi bi-caret-down"
-                ></i>
+                Jobs <i id="ico2" className="bi bi-caret-down"></i>
               </p>
             </Link>
           </div>
-          <div className="search">
-            <i className="bi bi-search"></i>
-            <input type="text" placeholder="Search" />
-          </div>
+
           {user ? (
             <>
               <div className="profile">
@@ -107,6 +94,9 @@ function Navbar() {
                     alt="user"
                     className="rounded-full w-12 mt-2"
                   />
+                </Link>
+                <Link to={"/profile"}>
+                  <i className="bi bi-caret-down"></i>
                 </Link>
               </div>
             </>
@@ -132,7 +122,6 @@ function Navbar() {
             </>
           ) : (
             <>
-              <div className="flex mt-7 hire">Hire Talent</div>
               <div className="adminMsg">
                 <Link to={"/adminLogin"}>
                   <button className="adminbtn">Admin</button>
@@ -142,67 +131,14 @@ function Navbar() {
           )}
         </ul>
       </nav>
-      {isDivVisibleForJob && (
-        <div className="profile-dropdown-1">
-          <div className="left-section">
-            <p>Top Locations</p>
-            <p>Profile</p>
-            <p>Top Category</p>
-            <p>Explore More Internships</p>
-          </div>
-          <div className="line flex bg-slate-400"></div>
-          <div className="right-section">
-            <p>Intern at India</p>
-            <p>Intern at India</p>
-            <p>Intern at India</p>
-            <p>Intern at India</p>
-            <p>Intern at India</p>
-          </div>
-        </div>
-      )}
-      {isDivVisibleForIntern && (
-        <div className="profile-dropdown-2">
-          <div className="left-section">
-            <p>Top Locations</p>
-            <p>Profile</p>
-            <p>Top Category</p>
-            <p>Explore More Internships</p>
-          </div>
-          <div className="line flex bg-slate-400"></div>
-          <div className="right-section">
-            <p>Intern at India</p>
-            <p>Intern at India</p>
-            <p>Intern at India</p>
-            <p>Intern at India</p>
-            <p>Intern at India</p>
-          </div>
-        </div>
-      )}
+
       <div className="login">
         {isDivVisibleForLogin && (
           <>
             <button id="cross" onClick={closeLogin}>
               <i className="bi bi-x"></i>
             </button>
-            <h5 id="state" className="mb-4 justify-center text-center">
-              <span
-                id="sign-in"
-                style={{ cursor: "pointer" }}
-                className={`auth-tab ${isStudent ? "active" : ""}`}
-                onClick={showStudent}
-              >
-                Student
-              </span>
-              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              <span
-                id="join-in"
-                style={{ cursor: "pointer" }}
-                className={`auth-tab ${isStudent ? "active" : ""}`}
-                onClick={closeStudent}
-              >
-                Employee
-              </span>
-            </h5>
+
             {isStudent ? (
               <>
                 <div className="py-6">
@@ -281,21 +217,14 @@ function Navbar() {
 
                       <div className="mt-4 flex items-center justify-between">
                         <p className="text-sm">
-                          new to internarea? Register(
-                          <span
+                          new to internarea?
+                          <Link
+                            to={"/register"}
                             className="text-blue-500 cursor-pointer"
                             onClick={closeLogin}
                           >
-                            Student
-                          </span>
-                          /
-                          <span
-                            className="text-blue-500 cursor-pointer"
-                            onClick={closeLogin}
-                          >
-                            company
-                          </span>
-                          ){" "}
+                            Register
+                          </Link>
                         </p>
                       </div>
                     </div>

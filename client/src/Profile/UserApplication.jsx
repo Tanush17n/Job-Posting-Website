@@ -1,10 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "./admin.css";
+import "./user.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../Feature/UserSlice";
 
-function ViewAllApplication() {
+function UserApplication() {
   const [application, setApplication] = useState([]);
+  const user = useSelector(selectUser);
+  const userApplication = application.filter(
+    (data) => data.user?.name === user?.name
+  );
   useEffect(() => {
     const fetchApplication = async () => {
       try {
@@ -18,7 +24,7 @@ function ViewAllApplication() {
     };
     fetchApplication();
   }, []);
-  console.log(application);
+  console.log(userApplication);
   return (
     <div>
       <div className="hide">
@@ -40,9 +46,9 @@ function ViewAllApplication() {
                     <th scope="col" className="px-5 py-4">
                       Applied On
                     </th>
-                    <th scope="col" className="px-5 py-4">
+                    {/* <th scope="col" className="px-5 py-4">
                       Applied By
-                    </th>
+                    </th> */}
                     <th scope="col" className="px-5 py-4">
                       View Detail
                     </th>
@@ -52,7 +58,7 @@ function ViewAllApplication() {
                   </tr>
                 </thead>
                 <tbody>
-                  {application.map((data) => (
+                  {userApplication.map((data) => (
                     <tr key={data._id} className="border-b">
                       <td className="whitespace-nowrap px-6 py-4">
                         {data.company}
@@ -63,11 +69,11 @@ function ViewAllApplication() {
                       <td className="whitespace-nowrap px-6 py-4">
                         {new Date(data?.createAt).toLocaleDateString()}
                       </td>
+                      {/* <td className="whitespace-nowrap px-6 py-4">
+                        {data.user?.name}
+                      </td> */}
                       <td className="whitespace-nowrap px-6 py-4">
-                        {data.user.name}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        <Link to={`/detailApplication?q=${data._id}`}>
+                        <Link to={`/detailApplicationUser?q=${data._id}`}>
                           <i className="bi bi-envelope-open text-blue-500"></i>
                         </Link>
                       </td>
@@ -87,7 +93,7 @@ function ViewAllApplication() {
         <h1 className="text-xl font-semibold mt-6 ml-6 mb-5">
           View All Applications
         </h1>
-        {application.map((data) => (
+        {userApplication.map((data) => (
           <section key={data._id} className="text-gray-600 body-font">
             <div className="container px-5 py-2 mx-auto flex flex-wrap">
               <div className="flex flex-wrap -m-4">
@@ -113,7 +119,7 @@ function ViewAllApplication() {
                       </h2>
                       <p className="leading-relaxed text-base">
                         {" "}
-                        Applied by {data.user.name}
+                        Applied by {data.user?.name}
                       </p>
                       <p className="leading-relaxed text-base">
                         {" "}
@@ -125,7 +131,7 @@ function ViewAllApplication() {
                         Application status {data.status}
                       </p>
                       <Link
-                        to={`/detailApplication?q=${data._id}`}
+                        to={`/detailApplicationUser?q=${data._id}`}
                         className="mt-3 text-indigo-500 inline-flex items-center"
                       >
                         View in deatil
@@ -143,4 +149,4 @@ function ViewAllApplication() {
   );
 }
 
-export default ViewAllApplication;
+export default UserApplication;

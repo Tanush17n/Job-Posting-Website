@@ -24,12 +24,6 @@ function Register() {
       });
     toast("Login Success");
   };
-  const setTrueForStudent = () => {
-    setStudent(false);
-  };
-  const setFalseForStudent = () => {
-    setStudent(true);
-  };
   const showLogin = () => {
     setDivVisible(true);
   };
@@ -150,7 +144,7 @@ function Register() {
                   <span className="text-blue-400">Term and Conditions.</span>
                 </small>
                 <button className="bg-blue-500 h-9 text-white font-bold py-2 mt-4 px-4 w-full rounded hover:bg-blue-600">
-                  Sing Up{" "}
+                  Sign Up{" "}
                 </button>
                 Already registered?{" "}
                 <span
@@ -170,25 +164,7 @@ function Register() {
             <button id="cross" onClick={closeLogin}>
               <i className="bi bi-x"></i>
             </button>
-            <h5 id="state" className="mb-4 justify-center text-center">
-              <span
-                id="Sign-in"
-                style={{ cursor: "pointer" }}
-                className={`auth-tab ${isStudent ? "active" : ""}`}
-                onClick={setFalseForStudent}
-              >
-                Student
-              </span>
-              &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-              <span
-                id="join-in"
-                style={{ cursor: "pointer" }}
-                className={`auth-tab ${isStudent ? "active" : ""}`}
-                onClick={setTrueForStudent}
-              >
-                Employee and T&P
-              </span>
-            </h5>
+
             {isStudent ? (
               <>
                 <div className="py-6">
@@ -258,26 +234,6 @@ function Register() {
                         <button className="btn3  bg-blue-500 h-9 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600 ">
                           Login
                         </button>
-                      </div>
-
-                      <div className="mt-4 flex items-center justify-between">
-                        <p className="text-sm">
-                          new to internarea? Register(
-                          <span
-                            className="text-blue-500 cursor-pointer"
-                            onClick={closeLogin}
-                          >
-                            Student
-                          </span>
-                          /
-                          <span
-                            className="text-blue-500 cursor-pointer"
-                            onClick={closeLogin}
-                          >
-                            company
-                          </span>
-                          ){" "}
-                        </p>
                       </div>
                     </div>
                   </div>
