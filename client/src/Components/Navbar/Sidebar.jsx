@@ -96,23 +96,23 @@ function Sidebar() {
 
         {user ? (
           <div className="addmore">
-            <Link to="/userapplication">
+            <Link to="/userApplications">
               <p>My Applications</p>
             </Link>
-            <Link>
+            {/* <Link>
               <p>View Resume</p>
             </Link>
             <Link>
               <p>More</p>
-            </Link>
+            </Link> */}
             <button className="bt-log" onClick={logoutFunction}>
               Logout <i className="bi bi-box-arrow-right ml-2 size-10"></i>
             </button>
           </div>
         ) : (
           <div className="addmore">
-            <p>Register as a Student</p>
-            <p>Register as an Employer</p>
+            {/* <p>Register as a Student</p>
+            <p>Register as an Employer</p> */}
           </div>
         )}
       </div>
