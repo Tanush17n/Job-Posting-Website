@@ -71,7 +71,7 @@ function AdminLogin() {
                     Password
                   </label>
                   <input
-                    type="pass"
+                    type="password"
                     id="pass"
                     name="password"
                     value={password}
