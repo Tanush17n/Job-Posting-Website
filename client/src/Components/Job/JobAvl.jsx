@@ -46,7 +46,9 @@ function JobAvl() {
     const fetchData = async () => {
       try {
         window.scrollTo(0, 0);
-        const response = await axios.get(`http://localhost:5000/api/job`);
+        const response = await axios.get(
+          `https://intershipbackend-vok7.onrender.com/api/job`
+        );
         setjobData(response.data);
       } catch (error) {
         console.log(error);
@@ -70,14 +72,14 @@ function JobAvl() {
               <i className="bi bi-funnel text-blue-400"></i> Filter
             </p>
             <div className="fill flex flex-col ml-2">
-              <label htmlFor="pro">Profile</label>
+              <label htmlFor="pro">Category</label>
               <input
                 type="text"
                 id="pro"
                 value={serachCategory}
                 onChange={handleCategoryChange}
                 className="location border-2 mr-4 mb-2"
-                placeholder="Profile manager"
+                placeholder="MBA"
               />
               <label htmlFor="loc">Location</label>
               <input
@@ -233,14 +235,14 @@ function JobAvl() {
                   Filter
                 </p> */}
                 <div className="fill flex flex-col ml-2">
-                  <label htmlFor="pro">Profile</label>
+                  <label htmlFor="pro">Category</label>
                   <input
                     type="text"
                     id="pro"
                     value={serachCategory}
                     onChange={handleCategoryChange}
                     className="profile border-2 mr-4 mb-2"
-                    placeholder="Profile manager"
+                    placeholder="MBA"
                   />
                   <label htmlFor="loc">Location</label>
                   <input

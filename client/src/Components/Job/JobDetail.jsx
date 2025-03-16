@@ -36,7 +36,9 @@ function JobDetail() {
     const fetchData = async () => {
       try {
         window.scrollTo(0, 0);
-        const response = await axios.get(`http://localhost:5000/api/job/${id}`);
+        const response = await axios.get(
+          `https://intershipbackend-vok7.onrender.com/api/job/${id}`
+        );
         const { company, category } = response.data;
         setCompany(company);
         setCategory(category);
@@ -62,7 +64,10 @@ function JobDetail() {
         Application: id,
       };
       await axios
-        .post("http://localhost:5000/api/application", bodyJson)
+        .post(
+          "https://intershipbackend-vok7.onrender.com/api/application",
+          bodyJson
+        )
         .then((res) => {})
         .catch((err) => {
           alert("Application error please try again");

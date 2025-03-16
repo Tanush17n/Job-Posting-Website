@@ -17,7 +17,7 @@ function Home() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/internship`
+          `https://intershipbackend-vok7.onrender.com/api/internship`
         );
         setInternshipData(response.data);
       } catch (error) {

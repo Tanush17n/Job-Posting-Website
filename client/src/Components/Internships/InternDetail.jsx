@@ -35,7 +35,7 @@ function InternDetail() {
 
     const fetchData = async () => {
       const response = await axios.get(
-        `http://localhost:5000/api/internship/${id}`
+        `https://intershipbackend-vok7.onrender.com/api/internship/${id}`
       );
       const { company, category } = response.data;
       setCompany(company);
@@ -58,7 +58,10 @@ function InternDetail() {
         Application: id,
       };
       await axios
-        .post("http://localhost:5000/api/application", bodyJson)
+        .post(
+          "https://intershipbackend-vok7.onrender.com/api/application",
+          bodyJson
+        )
         .then((res) => {})
         .catch((err) => {
           alert("Application error please try again");
@@ -127,8 +130,11 @@ function InternDetail() {
             </div>
             <p className="m-5 text-start"> {data.aboutCompany}</p>
             <div className="about-Job">
-              <p className="mt-3 text-xl font-bold text-start"> about Job</p>
-              <p className="ml-2 text-start">{data.aboutJob}</p>
+              <p className="mt-3 text-xl font-bold text-start">
+                {" "}
+                About Internship
+              </p>
+              <p className="ml-2 text-start">{data.aboutInternship}</p>
             </div>
             <p className="text-blue-500 justify-start">
               {" "}

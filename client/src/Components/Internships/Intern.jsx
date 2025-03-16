@@ -46,7 +46,7 @@ function Intern() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/internship`
+          `https://intershipbackend-vok7.onrender.com/api/internship`
         );
         setInternshipData(response.data);
       } catch (error) {
@@ -72,22 +72,15 @@ function Intern() {
               <i className="bi bi-funnel text-blue-400"></i> Filter
             </p>
             <div className="fill flex flex-col ml-2">
-              <label htmlFor="pro">Profile</label>
-              {/* <input
-                type="text"
-                id="pro"
-                value={searchCategory}
-                onChange={handleCategoryChange}
-                className="profile border-2 mr-4 mb-2"
-                placeholder="Profile manager"
-              /> */}
+              <label htmlFor="pro">Category</label>
+
               <input
                 type="text"
                 id="pro"
                 value={searchCategory}
                 onChange={handleCategoryChange}
                 className="location border-2 mr-4 mb-2"
-                placeholder="Profile manager"
+                placeholder="MBA"
               />
               <label htmlFor="loc">Location</label>
               <input
@@ -247,14 +240,14 @@ function Intern() {
                   Filter
                 </p> */}
                 <div className="fill flex flex-col ml-2">
-                  <label htmlFor="pro">Profile</label>
+                  <label htmlFor="pro">Category</label>
                   <input
                     type="text"
                     id="pro"
                     value={searchCategory}
                     onChange={handleCategoryChange}
                     className="profile border-2 mr-4 mb-2"
-                    placeholder="Profile manager"
+                    placeholder="MBA"
                   />
                   <label htmlFor="loc">Location</label>
                   <input

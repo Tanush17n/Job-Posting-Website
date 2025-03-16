@@ -14,7 +14,7 @@ function DeatilApplication() {
     }
     const fetchData = async () => {
       const response = await axios.get(
-        `http://localhost:5000/api/application/${id}`
+        `https://intershipbackend-vok7.onrender.com/api/application/${id}`
       );
       setData([response.data]);
     };
