@@ -44,14 +44,6 @@ function Navbar() {
     setDivVisibleForLogin(false);
   };
 
-  const showStudent = () => {
-    setStudent(true);
-  };
-
-  const closeStudent = () => {
-    setStudent(false);
-  };
-
   // const showInternships = () => {
   //   // document.getElementById("ico").className = "bi bi-caret-up-fill";
   //   setDivVisibleForIntern(!isDivVisibleForIntern);

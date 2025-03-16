@@ -24,7 +24,7 @@ import DetailApplicationUser from "./Applications/DetailApplicationUser"
 import UserApplication from './Profile/UserApplication';
 
 function App() {
-  const user = useSelector(selectUser);
+  // const user = useSelector(selectUser);
   const dispatch = useDispatch();
   useEffect(()=>{
     auth.onAuthStateChanged((authuser)=>{

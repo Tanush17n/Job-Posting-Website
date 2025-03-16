@@ -7,7 +7,7 @@ function DeatilApplication() {
   let search = window.location.search;
   const params = new URLSearchParams(search);
   const id = params.get("q");
-  const navigate = useNavigate();
+
   useEffect(() => {
     if (!id) {
       return;

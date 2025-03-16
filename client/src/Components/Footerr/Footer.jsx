@@ -59,7 +59,7 @@ function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block text-sm pb-2"
-                        // href="https://www.creative-tim.com/presentation?ref=njs-profile"
+                        href=""
                       >
                         About Us
                       </a>
@@ -67,7 +67,7 @@ function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block text-sm pb-2"
-                        // href="https://blog.creative-tim.com?ref=njs-profile"
+                        href=""
                       >
                         Blog
                       </a>
@@ -75,7 +75,7 @@ function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block text-sm pb-2"
-                        // href="https://www.github.com/creativetimofficial?ref=njs-profile"
+                        href=""
                       >
                         Github
                       </a>
@@ -83,7 +83,7 @@ function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block text-sm pb-2"
-                        // href="https://www.creative-tim.com/bootstrap-themes/free?ref=njs-profile"
+                        href=""
                       >
                         Free Products
                       </a>
@@ -98,7 +98,7 @@ function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        // href="https://github.com/creativetimofficial/notus-js/blob/main/LICENSE.md?ref=njs-profile"
+                        href=""
                       >
                         MIT License
                       </a>
@@ -106,7 +106,7 @@ function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        // href="https://creative-tim.com/terms?ref=njs-profile"
+                        href=""
                       >
                         Terms &amp; Conditions
                       </a>
@@ -114,7 +114,7 @@ function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        // href="https://creative-tim.com/privacy?ref=njs-profile"
+                        href=""
                       >
                         Privacy Policy
                       </a>
@@ -122,7 +122,7 @@ function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        // href="https://creative-tim.com/contact-us?ref=njs-profile"
+                        href=""
                       >
                         Contact Us
                       </a>

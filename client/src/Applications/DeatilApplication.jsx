@@ -30,7 +30,7 @@ function DeatilApplication() {
         app._id === id ? response.data.data : app
       );
       setData(UpdateApplication);
-      if (action == "accepted") {
+      if (action === "accepted") {
         alert("Application Accepted");
       } else {
         alert("Application Rejected");
