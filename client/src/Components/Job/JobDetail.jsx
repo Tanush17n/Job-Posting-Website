@@ -155,11 +155,6 @@ function JobDetail() {
               Additional information
             </p>
             <p className="ml-2 text-start">{data.AdditionalInfo}</p>
-            <p className="mt-3 text-xl font-bold text-start">
-              {" "}
-              Number of opening
-            </p>
-            <p className="ml-2 text-start">{data.numberOfopning}</p>
             <div className="flex justify-center mt-6 bg-blue-500 w-40 text-center text-white font-bold ">
               <button
                 className="flex justify-center align-middle"
