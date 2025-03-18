@@ -23,7 +23,7 @@ router.get("/", async(req,res)=>{
         const data=await application.find();
         res.json(data).status(200)
     } catch (error) {
-        console.log(err);
+        console.log(error);
         res.status(404).json({error:"Internal server error "})
     }
 })

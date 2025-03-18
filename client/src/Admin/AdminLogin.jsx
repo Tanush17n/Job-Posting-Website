@@ -22,7 +22,6 @@ function AdminLogin() {
         )
         .then((res) => {
           console.log(res, "data is send");
-          alert("success");
           navigate("/adminPanel");
         })
         .catch((err) => {
