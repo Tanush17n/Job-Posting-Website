@@ -18,20 +18,13 @@ router.post("/", async(req,res)=>{
     })
 })
 
-// Get user's applications only
+// Get all applications
 router.get("/", async(req,res)=>{
     try {
-        // Get the user's email from the auth token
-        const userEmail = req.headers['user-email']; // We'll send this from frontend
-        if (!userEmail) {
-            return res.status(401).json({ message: "User email not provided" });
-        }
-
-        // Get applications for the authenticated user only
-        const data = await application.find({ "user.email": userEmail });
+        const data = await application.find();
         res.json(data);
     } catch (error) {
-        console.error("Error fetching user applications:", error);
+        console.error("Error fetching applications:", error);
         res.status(500).json({ message: "Failed to fetch applications" });
     }
 })
@@ -45,7 +38,7 @@ router.get("/:id", async(req,res)=>{
         res.json(data);
     } catch (error) {
         console.log(error);
-        res.status(404).json({error:"Internal server error "})
+        res.status(404).json({error:"Internal server error"})
     }
 })
 

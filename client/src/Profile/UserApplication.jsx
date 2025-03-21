@@ -7,16 +7,21 @@ import { getUserApplications } from "../services/apiService";
 import { toast } from "react-toastify";
 
 function UserApplication() {
-  const [applications, setApplications] = useState([]);
+  const [application, setApplication] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const user = useSelector(selectUser);
 
+  // Filter applications for the current user
+  const userApplication = application.filter(
+    (data) => data.user?.name === user?.name
+  );
+
   useEffect(() => {
-    const fetchApplications = async () => {
+    const fetchApplication = async () => {
       try {
         setIsLoading(true);
         const data = await getUserApplications();
-        setApplications(data);
+        setApplication(data);
       } catch (error) {
         console.error('Error fetching applications:', error);
         toast.error(error.message || 'Failed to fetch applications');
@@ -24,7 +29,7 @@ function UserApplication() {
         setIsLoading(false);
       }
     };
-    fetchApplications();
+    fetchApplication();
   }, []);
 
   if (isLoading) {
@@ -35,7 +40,7 @@ function UserApplication() {
     );
   }
 
-  if (!applications.length) {
+  if (userApplication.length === 0) {
     return (
       <div className="text-center py-10">
         <h2 className="text-2xl font-semibold mb-4">No Applications Found</h2>
@@ -74,7 +79,7 @@ function UserApplication() {
                   </tr>
                 </thead>
                 <tbody>
-                  {applications.map((data) => (
+                  {userApplication.map((data) => (
                     <tr key={data._id} className="border-b">
                       <td className="whitespace-nowrap px-6 py-4">
                         {data.company}
@@ -86,7 +91,7 @@ function UserApplication() {
                         {new Date(data?.createAt).toLocaleDateString()}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        <Link to={`/detailApplicationUser?q=${encodeURIComponent(data._id)}`}>
+                        <Link to={`/detailApplicationUser?q=${data._id}`}>
                           <i className="bi bi-envelope-open text-blue-500"></i>
                         </Link>
                       </td>
@@ -112,7 +117,7 @@ function UserApplication() {
         <h1 className="text-xl font-semibold mt-6 ml-6 mb-5">
           Your Applications
         </h1>
-        {applications.map((data) => (
+        {userApplication.map((data) => (
           <section key={data._id} className="text-gray-600 body-font">
             <div className="container px-5 py-2 mx-auto flex flex-wrap">
               <div className="flex flex-wrap -m-4">
@@ -144,7 +149,7 @@ function UserApplication() {
                         Status: {data.status || 'pending'}
                       </p>
                       <Link
-                        to={`/detailApplicationUser?q=${encodeURIComponent(data._id)}`}
+                        to={`/detailApplicationUser?q=${data._id}`}
                         className="mt-3 text-indigo-500 inline-flex items-center"
                       >
                         View Details

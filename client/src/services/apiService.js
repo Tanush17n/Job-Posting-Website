@@ -7,21 +7,13 @@ const api = axios.create({
     baseURL: BASE_URL
 });
 
-// Add a request interceptor to add the JWT token and user email
+// Add a request interceptor to add the JWT token
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
-        const user = JSON.parse(localStorage.getItem('user'));
-        
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
-        
-        // Add user email if available
-        if (user?.emailid) {
-            config.headers['user-email'] = user.emailid;
-        }
-        
         return config;
     },
     (error) => {
@@ -42,7 +34,7 @@ export const getUserApplications = async () => {
 // Jobs
 export const getJobs = async () => {
     try {
-        const response = await api.get('/job');
+        const response = await api.get('/jobs');
         return response.data;
     } catch (error) {
         throw error.response?.data || { message: 'Error fetching jobs' };
@@ -52,7 +44,7 @@ export const getJobs = async () => {
 // Internships
 export const getInternships = async () => {
     try {
-        const response = await api.get('/internship');
+        const response = await api.get('/internships');
         return response.data;
     } catch (error) {
         throw error.response?.data || { message: 'Error fetching internships' };
