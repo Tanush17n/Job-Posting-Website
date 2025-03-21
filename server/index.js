@@ -5,6 +5,8 @@ const path=require("path")
 const cors=require("cors");
 const {connect}=require("./db")
 const router=require("./Routes/index")
+const authRoutes = require("./Routes/auth")
+require('dotenv').config();
 const port = 5000
 
 app.use(cors())
@@ -16,16 +18,19 @@ app.get("/",(req,res)=>{
     res.send("Hello This is My backend")
 })
 
+// Auth routes
+app.use("/api/auth", authRoutes)
+// Protected routes
 app.use("/api",router)
 
 connect();
 
- app.use((req,res,next)=>{
+app.use((req,res,next)=>{
     req.header("Access-Control-Allow-Origin","*")
     res.header("Access-Control-Allow-Origin","*")
     next()
- })
+})
 
 app.listen(port,()=>{
-    console.log("server is running on port ")
+    console.log("server is running on port " + port)
 })

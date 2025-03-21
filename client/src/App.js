@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar';
 import Home from './Components/Home/Home';
 import Footer from './Components/Footerr/Footer';
 import Register from './Components/auth/Register';
+import Login from './Components/auth/Login';
+import ProtectedRoute from './Components/auth/ProtectedRoute';
 import Intern from './Components/Internships/Intern';
 import JobAvl from './Components/Job/JobAvl';
 import JobDetail from './Components/Job/JobDetail';
@@ -19,58 +20,97 @@ import Adminpanel from './Admin/Adminpanel';
 import ViewAllApplication from './Admin/ViewAllApplication';
 import PostJOb from './Admin/PostJob';
 import Postinternships from './Admin/Postinternships';
-import DeatilApplication from './Applications/DeatilApplication'
-import DetailApplicationUser from "./Applications/DetailApplicationUser"
+import DeatilApplication from './Applications/DeatilApplication';
+import DetailApplicationUser from "./Applications/DetailApplicationUser";
 import UserApplication from './Profile/UserApplication';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
-  // const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  useEffect(()=>{
-    auth.onAuthStateChanged((authuser)=>{
-      if(authuser){
+
+  useEffect(() => {
+    auth.onAuthStateChanged((authuser) => {
+      if (authuser) {
         dispatch(login({
-          uid:authuser.uid,
-          photo:authuser.photoURL,
-          name:authuser.displayName,
-          emailid:authuser.email
-        }))
+          uid: authuser.uid,
+          photo: authuser.photoURL,
+          name: authuser.displayName,
+          emailid: authuser.email
+        }));
+      } else {
+        dispatch(logout());
       }
-      else{
-        dispatch(logout())
-      }
-      
-    })
-  }, [dispatch])
+    });
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <Navbar/>
+    <AuthProvider>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/Internships' element={<Intern />} />
+          <Route path='/Jobs' element={<JobAvl />} />
+          {/* Protected Routes */}
+          <Route path='/profile' element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          } />
+          <Route path='/detailJob' element={
+            <ProtectedRoute>
+              <JobDetail />
+            </ProtectedRoute>
+          } />
+          <Route path='/detailInternship' element={
+            <ProtectedRoute>
+              <InternDetail />
+            </ProtectedRoute>
+          } />
+          <Route path='/userApplications' element={
+            <ProtectedRoute>
+              <UserApplication />
+            </ProtectedRoute>
+          } />
+          <Route path='/detailApplicationUser' element={
+            <ProtectedRoute>
+              <DetailApplicationUser />
+            </ProtectedRoute>
+          } />
 
-      <Routes>
-        <Route path='/' element = {<Home/>} />
-        <Route path='/register' element = {<Register/>}/>
-        <Route path='/Internships' element = {<Intern/>} />
-        <Route path='/Jobs' element = {<JobAvl/>} />
-        <Route path='/detailJob' element = {<JobDetail/>}/>
-        <Route path='/detailInternship' element = {<InternDetail/>}/>
-        <Route path='/profile' element = {<Profile/>}/>
-        <Route path='/adminLogin' element = {<AdminLogin/>}/>
-        <Route path='/adminPanel' element = {<Adminpanel/>}/>
-        <Route path='/applications' element = {<ViewAllApplication/>}/>
-        <Route path='/postJob' element = {<PostJOb/>}/>
-        <Route path='/postInternship' element = {<Postinternships/>}/>
-        <Route path='/detailApplication' element = {<DeatilApplication/>}/>
-        <Route path='/detailApplicationUser' element = {<DetailApplicationUser/>}/>
-        <Route path='/userApplications' element = {<UserApplication/>}/>
-        
-         
-
-      
-      </Routes>
-
-
-      <Footer/>
-    </div>
+          {/* Admin Routes */}
+          <Route path='/adminLogin' element={<AdminLogin />} />
+          <Route path='/adminPanel' element={
+            <ProtectedRoute>
+              <Adminpanel />
+            </ProtectedRoute>
+          } />
+          <Route path='/applications' element={
+            <ProtectedRoute>
+              <ViewAllApplication />
+            </ProtectedRoute>
+          } />
+          <Route path='/postJob' element={
+            <ProtectedRoute>
+              <PostJOb />
+            </ProtectedRoute>
+          } />
+          <Route path='/postInternship' element={
+            <ProtectedRoute>
+              <Postinternships />
+            </ProtectedRoute>
+          } />
+          <Route path='/detailApplication' element={
+            <ProtectedRoute>
+              <DeatilApplication />
+            </ProtectedRoute>
+          } />
+        </Routes>
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 }
 
