@@ -7,13 +7,21 @@ const api = axios.create({
     baseURL: BASE_URL
 });
 
-// Add a request interceptor to add the JWT token
+// Add a request interceptor to add the JWT token and user email
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+        
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        
+        // Add user email if available
+        if (user?.emailid) {
+            config.headers['user-email'] = user.emailid;
+        }
+        
         return config;
     },
     (error) => {

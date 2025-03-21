@@ -7,20 +7,16 @@ import { getUserApplications } from "../services/apiService";
 import { toast } from "react-toastify";
 
 function UserApplication() {
-  const [application, setApplication] = useState([]);
+  const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const user = useSelector(selectUser);
 
-  const userApplication = application.filter(
-    (data) => data.user?.name === user?.name
-  );
-
   useEffect(() => {
-    const fetchApplication = async () => {
+    const fetchApplications = async () => {
       try {
         setIsLoading(true);
         const data = await getUserApplications();
-        setApplication(data);
+        setApplications(data);
       } catch (error) {
         console.error('Error fetching applications:', error);
         toast.error(error.message || 'Failed to fetch applications');
@@ -28,7 +24,7 @@ function UserApplication() {
         setIsLoading(false);
       }
     };
-    fetchApplication();
+    fetchApplications();
   }, []);
 
   if (isLoading) {
@@ -39,13 +35,22 @@ function UserApplication() {
     );
   }
 
+  if (!applications.length) {
+    return (
+      <div className="text-center py-10">
+        <h2 className="text-2xl font-semibold mb-4">No Applications Found</h2>
+        <p className="text-gray-600">You haven't applied to any positions yet.</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="hide">
         <h1 className="text-3xl font-semibold mt-3 text-center">
-          Total Applications
+          Your Applications
         </h1>
-        <div className="flex justify-center " id="tabel">
+        <div className="flex justify-center" id="tabel">
           <div className="applications flex flex-col mt-7">
             <div className="overflow-x-auto sm:-mx-6 lg:mx-8">
               <table className="inline-block min-w-full text-left text-sm font-light">
@@ -60,19 +65,16 @@ function UserApplication() {
                     <th scope="col" className="px-5 py-4">
                       Applied On
                     </th>
-                    {/* <th scope="col" className="px-5 py-4">
-                      Applied By
-                    </th> */}
                     <th scope="col" className="px-5 py-4">
                       View Detail
                     </th>
                     <th scope="col" className="px-5 py-4">
-                      Application Status
+                      Status
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {userApplication.map((data) => (
+                  {applications.map((data) => (
                     <tr key={data._id} className="border-b">
                       <td className="whitespace-nowrap px-6 py-4">
                         {data.company}
@@ -83,16 +85,19 @@ function UserApplication() {
                       <td className="whitespace-nowrap px-6 py-4">
                         {new Date(data?.createAt).toLocaleDateString()}
                       </td>
-                      {/* <td className="whitespace-nowrap px-6 py-4">
-                        {data.user?.name}
-                      </td> */}
                       <td className="whitespace-nowrap px-6 py-4">
-                        <Link to={`/detailApplicationUser?q=${data._id}`}>
+                        <Link to={`/detailApplicationUser?q=${encodeURIComponent(data._id)}`}>
                           <i className="bi bi-envelope-open text-blue-500"></i>
                         </Link>
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {data.status}
+                        <span className={`px-2 py-1 rounded ${
+                          data.status === 'accepted' ? 'bg-green-200 text-green-800' :
+                          data.status === 'rejected' ? 'bg-red-200 text-red-800' :
+                          'bg-yellow-200 text-yellow-800'
+                        }`}>
+                          {data.status || 'pending'}
+                        </span>
                       </td>
                     </tr>
                   ))}
@@ -105,9 +110,9 @@ function UserApplication() {
 
       <div className="show">
         <h1 className="text-xl font-semibold mt-6 ml-6 mb-5">
-          View All Applications
+          Your Applications
         </h1>
-        {userApplication.map((data) => (
+        {applications.map((data) => (
           <section key={data._id} className="text-gray-600 body-font">
             <div className="container px-5 py-2 mx-auto flex flex-wrap">
               <div className="flex flex-wrap -m-4">
@@ -120,36 +125,40 @@ function UserApplication() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth="2"
-                        className="w-8 h-8"
+                        className="w-10 h-10"
                         viewBox="0 0 24 24"
                       >
-                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
                       </svg>
                     </div>
                     <div className="flex-grow">
                       <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                        {" "}
-                        company name {data.company}
+                        {data.company}
                       </h2>
                       <p className="leading-relaxed text-base">
-                        {" "}
-                        Applied by {data.user?.name}
-                      </p>
-                      <p className="leading-relaxed text-base">
-                        {" "}
-                        Applied on{" "}
-                        {new Date(data?.createAt).toLocaleDateString()}
-                      </p>
-                      <p className="leading-relaxed text-base">
-                        {" "}
-                        Application status {data.status}
+                        Category: {data.category}
+                        <br />
+                        Applied On: {new Date(data?.createAt).toLocaleDateString()}
+                        <br />
+                        Status: {data.status || 'pending'}
                       </p>
                       <Link
-                        to={`/detailApplicationUser?q=${data._id}`}
+                        to={`/detailApplicationUser?q=${encodeURIComponent(data._id)}`}
                         className="mt-3 text-indigo-500 inline-flex items-center"
                       >
-                        View in deatil
-                        <i className="bi bi-chevron-compact-right text-blue-500"></i>
+                        View Details
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          className="w-4 h-4 ml-2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
                       </Link>
                     </div>
                   </div>
