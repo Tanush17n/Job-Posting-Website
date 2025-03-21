@@ -31,6 +31,30 @@ export const getUserApplications = async () => {
     }
 };
 
+// Get single application detail
+export const getApplicationDetail = async (id) => {
+    try {
+        const response = await api.get(`/application/${id}`);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || { message: 'Error fetching application details' };
+    }
+};
+
+// Submit new application
+export const submitApplication = async (applicationData) => {
+    try {
+        const response = await api.post('/application', applicationData);
+        return response.data;
+    } catch (error) {
+        console.error('Application submission error:', error);
+        if (error.response?.status === 401) {
+            throw { message: 'Please login to submit application' };
+        }
+        throw error.response?.data || { message: 'Failed to submit application' };
+    }
+};
+
 // Jobs
 export const getJobs = async () => {
     try {

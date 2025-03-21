@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../Feature/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { submitApplication } from "../../services/apiService";
 import axios from "axios";
+import { toast } from "react-toastify";
 import "./job.css";
 
 function JobDetail() {
@@ -11,6 +13,7 @@ function JobDetail() {
   const [textare, setTextare] = useState("");
   const [company, setCompany] = useState("");
   const [category, setCategory] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   let search = window.location.search;
@@ -18,6 +21,11 @@ function JobDetail() {
   const id = params.get("q");
 
   const show = () => {
+    if (!user) {
+      toast.error("Please login to apply");
+      navigate("/login");
+      return;
+    }
     setDivVIsible(true);
   };
 
@@ -29,7 +37,6 @@ function JobDetail() {
 
   useEffect(() => {
     if (!id) {
-      // console.error("No job ID found in URL");
       return;
     }
 
@@ -45,37 +52,38 @@ function JobDetail() {
         setData(response.data);
       } catch (error) {
         console.error("Error fetching job details:", error);
+        toast.error("Error loading job details");
       }
     };
 
     fetchData();
   }, [id]);
 
-  const submitApplication = async () => {
+  const handleSubmit = async () => {
     let text = document.getElementById("text");
     if (text.value === "") {
-      alert("Fill the Cover Letter Box");
-    } else {
-      const bodyJson = {
+      toast.error("Please fill in the cover letter");
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      const applicationData = {
         coverLetter: textare,
         category: category,
         company: company,
         user: user,
         Application: id,
       };
-      await axios
-        .post(
-          "https://intershipbackend-vok7.onrender.com/api/application",
-          bodyJson
-        )
-        .then((res) => {})
-        .catch((err) => {
-          alert("Application error please try again");
-          navigate("/Jobs");
-        });
-      console.log("submitted");
-      alert("Job Application sent");
+
+      await submitApplication(applicationData);
+      toast.success("Application submitted successfully!");
       navigate("/Jobs");
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      toast.error(error.message || "Failed to submit application");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -172,89 +180,38 @@ function JobDetail() {
                 <button id="cross" onClick={hide}>
                   <i className="bi bi-x"></i>
                 </button>
-                <p>Appliying for {data.company}</p>
-                <p className="m-3 text-sm font-bold text-start ">
+                <p>Applying for {data.company}</p>
+                <p className="m-3 text-sm font-bold text-start">
                   {data.aboutCompany}
                 </p>
               </div>
               <div className="moreSteps text-center">
                 <p className="font-semibold text-xl">Your resume</p>
                 <small className="flex justify-center">
-                  your current resume will be submitted along with the
-                  application
+                  Your current resume will be submitted along with the application
                 </small>
-
-                <p className="mt-5 font-semibold text-xl mb-2">Cover letter</p>
-
-                <p>why should we hire for this role?</p>
-                <textarea
-                  name="cover"
-                  placeholder=""
-                  id="text"
-                  value={textare}
-                  onChange={(e) => setTextare(e.target.value)}
-                ></textarea>
-                <p className="mt-5 font-semibold text-xl">your availiblity</p>
-                <p>confirm your availiblity</p>
-              </div>
-              <div className="options ml-5">
-                <div>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="Yes, I am available to join immediately"
-                    />
-                    &nbsp; Yes, I am available to join immediately
-                  </label>
+                <div className="mt-5">
+                  <p className="font-semibold text-xl">Cover letter</p>
+                  <textarea
+                    name=""
+                    id="text"
+                    cols="30"
+                    rows="10"
+                    className="mt-4"
+                    value={textare}
+                    onChange={(e) => setTextare(e.target.value)}
+                    placeholder="Why should you be hired for this job?"
+                  ></textarea>
                 </div>
-
-                <div>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="No, I am currently on notice period"
-                    />
-                    &nbsp; No, I am currently on notice period
-                  </label>
-                </div>
-
-                <div>
-                  <label>
-                    <input
-                      type="checkbox"
-                      value="No, I will have to serve notice period"
-                    />
-                    &nbsp; No, I will have to serve notice period
-                  </label>
-                </div>
-
-                <div>
-                  <label>
-                    <input type="checkbox" value="Other" />
-                    &nbsp; Other{" "}
-                    <span className="text-slate-500">
-                      (Please specify your availability){" "}
-                    </span>
-                  </label>
-                </div>
-              </div>
-              <p className="mt-5 font-semibold text-xl">
-                Custom resume <span className="text-slate-500">(Optional)</span>
-              </p>
-              <small className="text-slate-500 flex justify-center">
-                Employer can download and view this resume
-              </small>
-
-              <div className="submit flex justify-center mt-4">
-                {user ? (
-                  <button className="submit-btn" onClick={submitApplication}>
-                    Submit application
-                  </button>
-                ) : (
-                  <Link to={"/register"}>
-                    <button className="submit-btn">Submit application</button>
-                  </Link>
-                )}
+                <button
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className={`mt-4 bg-blue-500 text-white px-4 py-2 rounded ${
+                    isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
+                  }`}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                </button>
               </div>
             </div>
           </>
