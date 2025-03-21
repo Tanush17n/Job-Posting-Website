@@ -2,38 +2,82 @@ import React, { useState } from "react";
 import logo from "../../Assets/logo.png";
 import "./navbar.css";
 import Sidebar from "./Sidebar";
-import { signInWithPopup, signOut } from "firebase/auth";
+import { signInWithPopup, signOut, getIdToken } from "firebase/auth";
 import { auth, provider } from "../../Firebase/firebase";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../Feature/UserSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, logout as reduxLogout, login as reduxLogin } from "../../Feature/UserSlice";
+import { useAuth } from "../../context/AuthContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Navbar() {
   const user = useSelector(selectUser);
-  // const [isDivVisibleForIntern, setDivVisibleForIntern] = useState(false);
-  // const [isDivVisibleForJob, setDivVisibleForJob] = useState(false);
   const [isDivVisibleForLogin, setDivVisibleForLogin] = useState(false);
   const [isStudent, setStudent] = useState(true);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { login: authLogin, logout: authLogout } = useAuth();
 
-  const loginFunction = () => {
-    signInWithPopup(auth, provider)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const loginFunction = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      
+      // Get Firebase ID token
+      const firebaseToken = await getIdToken(result.user);
+      
+      // Update Redux state for Firebase auth
+      dispatch(reduxLogin({
+        uid: result.user.uid,
+        photo: result.user.photoURL,
+        name: result.user.displayName,
+        emailid: result.user.email
+      }));
+
+      // Update JWT auth context with Firebase token
+      authLogin(
+        {
+          id: result.user.uid,
+          firstName: result.user.displayName?.split(' ')[0] || '',
+          lastName: result.user.displayName?.split(' ')[1] || '',
+          email: result.user.email
+        },
+        firebaseToken
+      );
+
+      // Store token in localStorage for API requests
+      localStorage.setItem('token', firebaseToken);
+
+      toast.success("Successfully logged in with Google!");
+      navigate("/profile");
+    } catch (err) {
+      console.error(err);
+      toast.error("Google sign-in failed");
+    }
     setDivVisibleForLogin(false);
   };
 
-  const logoutFunction = () => {
-    // if (window.confirm("Are you sure you want to log out?")) {
-    alert("You have successfully logged out");
-    signOut(auth);
-    navigate("/");
-    // }
+  const logoutFunction = async () => {
+    try {
+      // Firebase logout
+      await signOut(auth);
+      
+      // Clear JWT auth context
+      authLogout();
+      
+      // Clear Redux state
+      dispatch(reduxLogout());
+      
+      // Clear any stored tokens
+      localStorage.removeItem('token');
+      
+      toast.success("Successfully logged out");
+      navigate("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error("Error logging out");
+    }
   };
 
   const showLogin = () => {
@@ -44,17 +88,6 @@ function Navbar() {
     setDivVisibleForLogin(false);
   };
 
-  // const showInternships = () => {
-  //   // document.getElementById("ico").className = "bi bi-caret-up-fill";
-  //   setDivVisibleForIntern(!isDivVisibleForIntern);
-  // };
-
-  // const showJobs = () => {
-  //   // document.getElementById("ico2").className = "bi bi-caret-up-fill";
-  //   setDivVisibleForJob(!isDivVisibleForJob);
-  // };
-
-  // const user = 1;
   return (
     <div>
       <nav className="nav1">
@@ -91,29 +124,21 @@ function Navbar() {
                   <i className="bi bi-caret-down"></i>
                 </Link>
               </div>
-            </>
-          ) : (
-            <>
-              <div className="auth">
-                <button className="btn1" onClick={showLogin}>
-                  Login
-                </button>
-
-                <button className="btn2">
-                  <Link to={"/register"}>Register</Link>
-                </button>
-              </div>
-            </>
-          )}
-
-          {user ? (
-            <>
               <button className="btn-logout" onClick={logoutFunction}>
                 LogOut
               </button>
             </>
           ) : (
             <>
+              <div className="auth">
+                <button className="btn1">
+                  <Link to={"/login"}>Login</Link>
+                </button>
+
+                <button className="btn2">
+                  <Link to={"/register"}>Register</Link>
+                </button>
+              </div>
               <div className="adminMsg">
                 <Link to={"/adminLogin"}>
                   <button className="adminbtn">Admin</button>
@@ -124,7 +149,7 @@ function Navbar() {
         </ul>
       </nav>
 
-      <div className="login">
+      {/* <div className="login">
         {isDivVisibleForLogin && (
           <>
             <button id="cross" onClick={closeLogin}>
@@ -283,7 +308,7 @@ function Navbar() {
             )}
           </>
         )}
-      </div>
+      </div> */}
       <Sidebar />
     </div>
   );

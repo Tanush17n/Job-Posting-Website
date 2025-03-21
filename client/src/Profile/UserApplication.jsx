@@ -1,30 +1,44 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./user.css";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../Feature/UserSlice";
+import { getUserApplications } from "../services/apiService";
+import { toast } from "react-toastify";
 
 function UserApplication() {
   const [application, setApplication] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const user = useSelector(selectUser);
+
   const userApplication = application.filter(
     (data) => data.user?.name === user?.name
   );
+
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const response = await axios.get(
-          "https://intershipbackend-vok7.onrender.com/api/application"
-        );
-        setApplication(response.data);
+        setIsLoading(true);
+        const data = await getUserApplications();
+        setApplication(data);
       } catch (error) {
-        alert(error);
+        console.error('Error fetching applications:', error);
+        toast.error(error.message || 'Failed to fetch applications');
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchApplication();
   }, []);
-  console.log(userApplication);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="hide">

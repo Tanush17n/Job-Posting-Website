@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup, getIdToken } from "firebase/auth";
 import { auth, provider } from "../../Firebase/firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login as loginApi } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
@@ -33,8 +33,9 @@ function Login() {
         emailid: response.user.email
       }));
 
+      localStorage.setItem('token', response.token);
       toast.success("Login successful!");
-      navigate("/");
+      navigate("/profile");
     } catch (error) {
       toast.error(error.message || "Login failed");
     } finally {
@@ -42,31 +43,60 @@ function Login() {
     }
   };
 
-  const handleGoogleSignin = () => {
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // Update Redux state for Firebase auth
-        dispatch(reduxLogin({
-          uid: result.user.uid,
-          photo: result.user.photoURL,
-          name: result.user.displayName,
-          emailid: result.user.email
-        }));
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Google sign-in failed");
-      });
+  const handleGoogleSignin = async () => {
+    try {
+      setIsLoading(true);
+      const result = await signInWithPopup(auth, provider);
+      
+      // Get Firebase ID token
+      const firebaseToken = await getIdToken(result.user);
+      
+      // Update Redux state
+      dispatch(reduxLogin({
+        uid: result.user.uid,
+        photo: result.user.photoURL,
+        name: result.user.displayName,
+        emailid: result.user.email
+      }));
+
+      // Update JWT auth context
+      login(
+        {
+          id: result.user.uid,
+          firstName: result.user.displayName?.split(' ')[0] || '',
+          lastName: result.user.displayName?.split(' ')[1] || '',
+          email: result.user.email
+        },
+        firebaseToken
+      );
+
+      // Store token for API requests
+      localStorage.setItem('token', firebaseToken);
+
+      toast.success("Successfully signed in with Google!");
+      navigate("/profile");
+    } catch (error) {
+      // Handle specific Firebase errors
+      if (error.code === 'auth/cancelled-popup-request') {
+        toast.info("Sign-in was cancelled");
+      } else if (error.code === 'auth/popup-blocked') {
+        toast.error("Popup was blocked by your browser. Please allow popups for this site.");
+      } else {
+        console.error("Google sign-in error:", error);
+        toast.error("Failed to sign in with Google");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="py-6">
-      <div className="flex bg-white rounded-lg justify-center shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+      <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
         <div className="w-full p-8 lg:w-1/2">
           <div
             onClick={handleGoogleSignin}
-            className="flex items-center h-9 justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100 cursor-pointer"
+            className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100 cursor-pointer"
           >
             <div className="px-4 py-3">
               <svg className="h-6 w-6" viewBox="0 0 40 40">
@@ -89,20 +119,22 @@ function Login() {
               </svg>
             </div>
             <h1 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
-              Sign in with Google
+              {isLoading ? "Signing in..." : "Sign in with Google"}
             </h1>
           </div>
 
           <div className="mt-4 flex items-center justify-between">
             <span className="border-b w-1/5 lg:w-1/4"></span>
-            <div className="text-xs text-center text-gray-500 uppercase">or</div>
+            <div className="text-xs text-center text-gray-500 uppercase">
+              or login with email
+            </div>
             <span className="border-b w-1/5 lg:w-1/4"></span>
           </div>
 
           <form onSubmit={handleLogin}>
             <div className="mt-4">
               <label className="block text-gray-700 text-sm font-bold mb-2">
-                Email
+                Email Address
               </label>
               <input
                 type="email"
@@ -118,9 +150,6 @@ function Login() {
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Password
                 </label>
-                <a href="/forgot-password" className="text-xs text-blue-500">
-                  Forgot Password?
-                </a>
               </div>
               <input
                 type="password"
@@ -144,10 +173,10 @@ function Login() {
 
           <div className="mt-4 text-center">
             <p className="text-sm">
-              New to Internshala?{" "}
-              <a href="/register" className="text-blue-500">
+              Don't have an account?{" "}
+              <Link to="/register" className="text-blue-500">
                 Register here
-              </a>
+              </Link>
             </p>
           </div>
         </div>
