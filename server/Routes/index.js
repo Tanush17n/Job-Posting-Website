@@ -17,9 +17,9 @@ router.use("/auth", authRoute)
 // Public routes
 router.use("/internship", internRoute)
 router.use("/job", jobRoute)
+router.use("/admin", adminRoute)  // Removed auth middleware
 
 // Protected routes
 router.use("/application", auth, ApplicationRoute)
-router.use("/admin", auth, adminRoute)
 
 module.exports = router;
