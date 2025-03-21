@@ -36,4 +36,34 @@ router.get("/applications", async (req, res) => {
     }
 });
 
+// Get single application details (admin view)
+router.get("/application/:id", async (req, res) => {
+    try {
+        const data = await application.findById(req.params.id);
+        if (!data) {
+            return res.status(404).json({ message: "Application not found" });
+        }
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching application:", error);
+        res.status(500).json({ message: "Failed to fetch application details" });
+    }
+});
+
+// Update application status (admin only)
+router.put("/application/:id", async (req, res) => {
+    try {
+        const { action } = req.body;
+        const updatedApplication = await application.findByIdAndUpdate(
+            req.params.id,
+            { status: action },
+            { new: true }
+        );
+        res.json({ success: true, data: updatedApplication });
+    } catch (error) {
+        console.error("Error updating application:", error);
+        res.status(500).json({ message: "Failed to update application" });
+    }
+});
+
 module.exports = router;

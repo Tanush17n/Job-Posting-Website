@@ -8,22 +8,29 @@ function DeatilApplication() {
   const params = new URLSearchParams(search);
   const id = params.get("q");
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!id) {
       return;
     }
     const fetchData = async () => {
-      const response = await axios.get(
-        `https://intershipbackend-vok7.onrender.com/api/application/${id}`
-      );
-      setData([response.data]);
+      try {
+        const response = await axios.get(
+          `https://intershipbackend-vok7.onrender.com/api/admin/application/${id}`
+        );
+        setData([response.data]);
+      } catch (error) {
+        console.error("Error fetching application:", error);
+        navigate("/applications");
+      }
     };
     fetchData();
-  }, [id]);
+  }, [id, navigate]);
+
   const handleAcceptAndReject = async (id, action) => {
     try {
       const response = await axios.put(
-        `https://intershipbackend-vok7.onrender.com/api/application/${id}`,
+        `https://intershipbackend-vok7.onrender.com/api/admin/application/${id}`,
         { action }
       );
       const UpdateApplication = data.map((app) =>
@@ -37,10 +44,11 @@ function DeatilApplication() {
       }
       navigate("/applications");
     } catch (error) {
-      console.log(error);
+      console.error("Error updating application:", error);
+      alert("Failed to update application status");
     }
   };
-  console.log(data);
+
   return (
     <div>
       {data.map((data) => (
@@ -53,7 +61,7 @@ function DeatilApplication() {
               <img
                 alt="ecommerce"
                 className="lg:w-1/4 w-3/4 lg:h-auto h-64 object-cover rounded mx-auto"
-                src={data.user.photo}
+                src={data.user?.photo}
               />
               <div className="lg:w-1/2 w-full lg:pl-20 lg:py-6 mt-6 lg:mt-0 justify-around mx-auto ">
                 <h2 className="ml-56">Company name</h2>
@@ -73,7 +81,7 @@ function DeatilApplication() {
                 </p>
 
                 <h4 className=" ml-56 mt-9">Applied By</h4>
-                <p className="font-bold -mt-6 ml-56">{data.user.name}</p>
+                <p className="font-bold -mt-6 ml-56">{data.user?.name}</p>
               </div>
             </div>
             <div className="flex mt-24 justify-center">

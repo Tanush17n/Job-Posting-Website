@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import "./admin.css";
 
 function ViewApplications() {
   const [applications, setApplications] = useState([]);
@@ -35,62 +36,139 @@ function ViewApplications() {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">All Applications</h1>
-          <button
-            onClick={() => navigate('/adminPanel')}
-            className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-600 transition-colors"
-          >
-            Back to Dashboard
-          </button>
+    <div>
+      <div className="hide">
+        <h1 className="text-3xl font-semibold mt-3 text-center">
+          Total Applications
+        </h1>
+        <div className="flex justify-center" id="tabel">
+          <div className="applications flex flex-col mt-7">
+            <div className="overflow-x-auto sm:-mx-6 lg:mx-8">
+              {isLoading ? (
+                <div className="text-center py-8">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto"></div>
+                  <p className="mt-4 text-gray-600">Loading applications...</p>
+                </div>
+              ) : applications.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-gray-600">No applications found.</p>
+                </div>
+              ) : (
+                <table className="inline-block min-w-full text-left text-sm font-light">
+                  <thead className="border-b font-medium">
+                    <tr className="bg-gray-200">
+                      <th scope="col" className="px-5 py-4">
+                        Company
+                      </th>
+                      <th scope="col" className="px-5 py-4">
+                        Category
+                      </th>
+                      <th scope="col" className="px-5 py-4">
+                        Applied On
+                      </th>
+                      <th scope="col" className="px-5 py-4">
+                        Applied By
+                      </th>
+                      <th scope="col" className="px-5 py-4">
+                        View Detail
+                      </th>
+                      <th scope="col" className="px-5 py-4">
+                        Application Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {applications.map((data) => (
+                      <tr key={data._id} className="border-b">
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {data.company}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {data.category}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {new Date(data?.createAt).toLocaleDateString()}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {data.user?.name}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          <Link to={`/detailApplication?q=${encodeURIComponent(data._id)}`}>
+                            <i className="bi bi-envelope-open text-blue-500"></i>
+                          </Link>
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4">
+                          {data.status}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
         </div>
+      </div>
 
-        {isLoading ? (
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading applications...</p>
-          </div>
-        ) : applications.length === 0 ? (
-          <div className="text-center py-8">
-            <p className="text-gray-600">No applications found.</p>
-          </div>
-        ) : (
-          <div className="bg-white shadow overflow-hidden sm:rounded-md">
-            <ul className="divide-y divide-gray-200">
-              {applications.map((application) => (
-                <li key={application._id} className="px-6 py-4 hover:bg-gray-50">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-indigo-600 truncate">
-                          {application.user?.name || 'Unknown User'}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {application.category}
-                        </p>
-                      </div>
-                      <div className="mt-2">
-                        <p className="text-sm text-gray-900 truncate">
-                          Company: {application.company}
-                        </p>
-                        <p className="mt-1 text-sm text-gray-500">
-                          Email: {application.user?.email}
-                        </p>
-                      </div>
-                      <div className="mt-2">
-                        <p className="text-sm text-gray-600">
-                          Cover Letter: {application.coverLetter}
-                        </p>
-                      </div>
+      <div className="show">
+        <h1 className="text-xl font-semibold mt-6 ml-6 mb-5">
+          View All Applications
+        </h1>
+        {applications.map((data) => (
+          <section key={data._id} className="text-gray-600 body-font">
+            <div className="container px-5 py-2 mx-auto flex flex-wrap">
+              <div className="flex flex-wrap -m-4">
+                <div className="p-4 lg:w-1/2 md:w-full">
+                  <div className="flex border-2 rounded-lg border-gray-200 border-opacity-50 p-8 sm:flex-row flex-col">
+                    <div className="w-16 h-16 sm:mr-8 sm:mb-0 mb-4 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+                      <svg
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        className="w-10 h-10"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                    </div>
+                    <div className="flex-grow">
+                      <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
+                        {data.user?.name}
+                      </h2>
+                      <p className="leading-relaxed text-base">
+                        Company: {data.company}
+                        <br />
+                        Category: {data.category}
+                        <br />
+                        Applied On: {new Date(data?.createAt).toLocaleDateString()}
+                      </p>
+                      <Link
+                        to={`/detailApplication?q=${encodeURIComponent(data._id)}`}
+                        className="mt-3 text-indigo-500 inline-flex items-center"
+                      >
+                        View Details
+                        <svg
+                          fill="none"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          className="w-4 h-4 ml-2"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                      </Link>
                     </div>
                   </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+                </div>
+              </div>
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );

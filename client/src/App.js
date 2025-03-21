@@ -51,8 +51,9 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/Internships' element={<Intern />} />
-          <Route path='/Jobs' element={<JobAvl />} />
+          <Route path='/internships' element={<Intern />} />
+          <Route path='/jobs' element={<JobAvl />} />
+          
           {/* Protected Routes */}
           <Route path='/profile' element={
             <ProtectedRoute>
@@ -86,8 +87,7 @@ function App() {
           <Route path='/applications' element={<ViewApplications />} />
           <Route path='/postJob' element={<PostJOb />} />
           <Route path='/postInternship' element={<Postinternships />} />
-          <Route path='/detailApplication/:id' element={<DeatilApplication />} />
-          <Route path='/detailApplicationUser/:id' element={<DetailApplicationUser />} />
+          <Route path='/detailApplication' element={<DeatilApplication />} />
           <Route path='/userApplication' element={<ProtectedRoute><UserApplication /></ProtectedRoute>} />
         </Routes>
         <Footer />
