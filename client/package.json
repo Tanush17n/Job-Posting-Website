@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://intershipbackend-vok7.onrender.com/api",
+  "proxy": "https://intershipbackend-vok7.onrender.com",
   "dependencies": {
     "@jridgewell/gen-mapping": "^0.3.6",
     "@reduxjs/toolkit": "^2.5.1",

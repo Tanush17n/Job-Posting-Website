@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login as loginApi } from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { login as reduxLogin } from "../../Feature/UserSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -12,6 +14,7 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+  const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,7 +25,14 @@ function Login() {
         password
       });
       
+      // Update both JWT auth context and Redux state
       login(response.user, response.token);
+      dispatch(reduxLogin({
+        uid: response.user.id,
+        name: `${response.user.firstName} ${response.user.lastName}`,
+        emailid: response.user.email
+      }));
+
       toast.success("Login successful!");
       navigate("/");
     } catch (error) {
@@ -34,8 +44,14 @@ function Login() {
 
   const handleGoogleSignin = () => {
     signInWithPopup(auth, provider)
-      .then((res) => {
-        console.log(res);
+      .then((result) => {
+        // Update Redux state for Firebase auth
+        dispatch(reduxLogin({
+          uid: result.user.uid,
+          photo: result.user.photoURL,
+          name: result.user.displayName,
+          emailid: result.user.email
+        }));
         navigate("/");
       })
       .catch((err) => {

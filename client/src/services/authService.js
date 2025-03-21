@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = '/api/auth';
+const BASE_URL = 'https://intershipbackend-vok7.onrender.com';
+const API_URL = `${BASE_URL}/api/auth`;
 
 export const register = async (userData) => {
     try {
