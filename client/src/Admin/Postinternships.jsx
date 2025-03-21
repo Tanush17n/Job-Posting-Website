@@ -57,9 +57,11 @@ function Postinternships() {
           console.log(res.data);
         })
         .catch((err) => console.log(err));
+
+      alert(" Internship Posted is Successfully");
+      navigate("/adminPanel");
     }
-    alert(" Internship Posted is Successfully");
-    navigate("/adminPanel");
+    
   };
   return (
     <div className="bg-white py-6 sm:py-8 lg:py-12">
@@ -250,7 +252,7 @@ function Postinternships() {
             ></textarea>
           </div>
 
-          <button className="hover:bg-blue-600">Post Job</button>
+          <button className="hover:bg-blue-600">Post Internship</button>
         </form>
       </div>
     </div>

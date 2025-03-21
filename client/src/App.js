@@ -17,7 +17,7 @@ import { auth } from './Firebase/firebase';
 import Profile from './Profile/Profile';
 import AdminLogin from './Admin/AdminLogin';
 import Adminpanel from './Admin/Adminpanel';
-import ViewAllApplication from './Admin/ViewAllApplication';
+import ViewApplications from './Admin/ViewApplications';
 import PostJOb from './Admin/PostJob';
 import Postinternships from './Admin/Postinternships';
 import DeatilApplication from './Applications/DeatilApplication';
@@ -82,31 +82,13 @@ function App() {
 
           {/* Admin Routes */}
           <Route path='/adminLogin' element={<AdminLogin />} />
-          <Route path='/adminPanel' element={
-            <ProtectedRoute>
-              <Adminpanel />
-            </ProtectedRoute>
-          } />
-          <Route path='/applications' element={
-            <ProtectedRoute>
-              <ViewAllApplication />
-            </ProtectedRoute>
-          } />
-          <Route path='/postJob' element={
-            <ProtectedRoute>
-              <PostJOb />
-            </ProtectedRoute>
-          } />
-          <Route path='/postInternship' element={
-            <ProtectedRoute>
-              <Postinternships />
-            </ProtectedRoute>
-          } />
-          <Route path='/detailApplication' element={
-            <ProtectedRoute>
-              <DeatilApplication />
-            </ProtectedRoute>
-          } />
+          <Route path='/adminPanel' element={<Adminpanel />} />
+          <Route path='/applications' element={<ViewApplications />} />
+          <Route path='/postJob' element={<PostJOb />} />
+          <Route path='/postInternship' element={<Postinternships />} />
+          <Route path='/detailApplication/:id' element={<DeatilApplication />} />
+          <Route path='/detailApplicationUser/:id' element={<DetailApplicationUser />} />
+          <Route path='/userApplication' element={<ProtectedRoute><UserApplication /></ProtectedRoute>} />
         </Routes>
         <Footer />
       </div>

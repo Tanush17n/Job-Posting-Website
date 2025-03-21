@@ -18,24 +18,21 @@ router.post("/", async(req,res)=>{
     })
 })
 
+// Get user's applications only
 router.get("/", async(req,res)=>{
     try {
-        const data=await application.find();
-        res.json(data).status(200)
+        // Get applications for the authenticated user only
+        const data = await application.find({ "user.email": req.user.email });
+        res.json(data);
     } catch (error) {
-        console.log(error);
-        res.status(404).json({error:"Internal server error "})
+        console.error("Error fetching user applications:", error);
+        res.status(500).json({ message: "Failed to fetch applications" });
     }
 })
 
 router.get("/:id", async(req,res)=>{
-    const {id}=req.params;
     try {
-        const data=await application.findById(id);
-        if (!data) {
-
-             res.status(404).json({error:"Application is not found "})
-        }
+        const data=await application.findById(req.params.id);
         res.json(data).status(200)
     } catch (error) {
         console.log(error);

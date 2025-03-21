@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const application = require("../Model/Application");
 const adminUsername = 'admin';
 const adminPassword = 'admin';
 
@@ -21,6 +22,17 @@ router.post("/adminLogin", (req, res) => {
             success: false,
             message: "Invalid admin credentials"
         });
+    }
+});
+
+// Get all applications (admin view)
+router.get("/applications", async (req, res) => {
+    try {
+        const data = await application.find();
+        res.json(data);
+    } catch (error) {
+        console.error("Error fetching applications:", error);
+        res.status(500).json({ message: "Failed to fetch applications" });
     }
 });
 
